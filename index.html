@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qo'ng'irot tumani Ixtisoslashtirilgan maktab-internati 7-B sinfi rasmiy maktab portali">
+    <meta name="author" content="Rametullayev Sayidbek Alisherovich">
+    <title>7-B Sinfi | Qo'ng'irot tumani Ixtisoslashtirilgan Maktab-internati</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 0.8px, transparent 0.8px);
+            background-size: 22px 22px;
+            background-attachment: fixed;
+        }
+        .glass { background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .hero-bg { background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 50%, #0284c7 100%); }
+        .story-ring { background: linear-gradient(45deg, #f59e0b, #ef4444, #6366f1, #10b981); padding: 2.5px; }
+        .story-ring-seen { background: #cbd5e1; padding: 2px; }
+        .tab-active { background-color: #4f46e5; color: #ffffff; box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35); }
+        .tab-inactive { background-color: #ffffff; color: #475569; }
+        .tab-inactive:hover { background-color: #f1f5f9; color: #1e293b; }
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col relative">
+
+    <!-- Optional School Background Overlay -->
+    <div id="schoolBgOverlay" class="fixed inset-0 pointer-events-none z-0 transition-opacity duration-300" style="background: rgba(248, 250, 252, 0.85); display: none;"></div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-[110] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 glass border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+            <div onclick="switchMainTab('feed')" class="flex items-center gap-3 cursor-pointer group shrink-0">
+                <div class="w-11 h-11 rounded-2xl hero-bg flex items-center justify-center text-white font-extrabold text-lg shadow-md group-hover:scale-105 transition relative">
+                    7-B
+                    <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-amber-400 border-2 border-white"></span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-extrabold text-slate-900 text-base sm:text-lg leading-tight">7-B Sinf Portali</h1>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">Maktab Tarmog'i</span>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium">Qo'ng'irot tumani Ixtisoslashtirilgan maktab-internati</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="switchMainTab('games')" class="hidden md:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition">
+                    <i class="fa-solid fa-gamepad text-amber-200"></i>
+                    <span>O'yinlar (+Ball)</span>
+                </button>
+                <div id="authHeaderArea" class="flex items-center gap-2 sm:gap-3"></div>
+            </div>
+        </div>
+
+        <!-- Secondary Navigation Tabs -->
+        <div class="bg-slate-50/90 border-t border-slate-200/70 overflow-x-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-2 min-w-max" id="mainNavTabs">
+                <button onclick="switchMainTab('feed')" data-tab="feed" class="nav-tab tab-active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-newspaper"></i> <span>Lenta</span>
+                </button>
+                <button onclick="switchMainTab('reels')" data-tab="reels" class="nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-clapperboard text-rose-500"></i> <span>Reels</span>
+                    <span id="reelsCountBadge" class="bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
+                </button>
+                <button onclick="switchMainTab('chat')" data-tab="chat" class="nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-comments text-sky-500"></i> <span>Sinf Chati</span>
+                </button>
+                <button onclick="switchMainTab('games')" data-tab="games" class="nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-gamepad text-emerald-600"></i> <span>O'yinlar</span>
+                </button>
+                <button onclick="switchMainTab('students')" data-tab="students" class="nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-amber-500"></i> <span>Reyting & Obuna</span>
+                </button>
+                <button onclick="switchMainTab('homework')" data-tab="homework" class="nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-book-open-reader text-indigo-600"></i> <span>Vazifalar</span>
+                    <span id="hwCountBadge" class="bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
+                </button>
+                <button onclick="switchMainTab('schedule')" data-tab="schedule" class="nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-days"></i> <span>Jadval</span>
+                </button>
+                <button onclick="switchMainTab('school')" data-tab="school" class="nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-school"></i> <span>Ustozlar</span>
+                </button>
+                <button id="navTabProfile" onclick="switchMainTab('profile')" data-tab="profile" class="hidden nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-user-pen"></i> <span>Profilim</span>
+                </button>
+                <button id="navTabAdmin" onclick="switchMainTab('admin')" data-tab="admin" class="hidden nav-tab tab-inactive px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-rose-200 bg-rose-50/70 text-rose-700">
+                    <i class="fa-solid fa-shield-halved"></i> <span>Admin</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+        <!-- ==================== TAB 1: FEED, STORIES & POSTS ==================== -->
+        <section id="tab-feed" class="tab-section space-y-6">
+            <!-- BIG HERO BANNER -->
+            <div class="hero-bg rounded-3xl p-7 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -right-14 -top-14 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+                <div class="absolute left-1/3 -bottom-16 w-56 h-56 rounded-full bg-sky-400/15 blur-2xl pointer-events-none"></div>
+                <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="max-w-2xl">
+                        <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-bold mb-3 border border-white/15">
+                            <i class="fa-solid fa-graduation-cap text-amber-300"></i>
+                            <span>Qo'ng'irot tumani Ixtisoslashtirilgan maktab-internati • 2026-2027</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3 leading-tight">
+                            7-B Sinfi — Qo'ng'irot Rasmiy Portali
+                        </h2>
+                        <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
+                            Sinf hayoti, istoriyalar, Reels videolar, dars jadvali, uyga vazifalar va aqliy o'yinlarda ball to'plab reytingda 1-o'ringa chiqing!
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 shrink-0">
+                        <div class="bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-4 text-center">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">24</div>
+                            <div class="text-[11px] text-indigo-100 font-medium">O'quvchilar</div>
+                        </div>
+                        <div class="bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-4 text-center">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-300">20</div>
+                            <div class="text-[11px] text-indigo-100 font-medium">Ustozlar</div>
+                        </div>
+                        <div class="bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-4 text-center">
+                            <div id="heroPostCount" class="text-2xl sm:text-3xl font-extrabold text-cyan-200">0</div>
+                            <div class="text-[11px] text-indigo-100 font-medium">Nashrlar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INSTAGRAM-STYLE STORIES BAR -->
+            <div class="bg-white/95 rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-sm">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-play text-rose-500"></i>
+                        <span>7-B Istoriyalar (24 soatlik)</span>
+                    </h3>
+                    <button onclick="openAddStoryModal()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+                        <i class="fa-solid fa-plus-circle"></i> Istoriya qo'shish
+                    </button>
+                </div>
+                <div id="storiesBarContainer" class="flex items-center gap-4 overflow-x-auto pb-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Create Post / Reel Box -->
+                    <div id="createPostCard" class="hidden bg-white/95 rounded-3xl p-6 border border-indigo-200 shadow-md">
+                        <div class="flex items-center justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 text-base">Yangi Post yoki Reels joylash</h3>
+                                    <p class="text-xs text-slate-500">O'quvchilar va ustozlar uchun umumiy ijodiy lenta</p>
+                                </div>
+                            </div>
+                            <div class="flex bg-slate-100 p-1 rounded-xl text-xs font-bold">
+                                <button type="button" id="typePostBtn" onclick="setCreateMediaType('post')" class="px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-sm transition">
+                                    <i class="fa-solid fa-image mr-1"></i> Post
+                                </button>
+                                <button type="button" id="typeReelBtn" onclick="setCreateMediaType('reel')" class="px-3 py-1.5 rounded-lg text-slate-600 transition">
+                                    <i class="fa-solid fa-clapperboard mr-1 text-rose-500"></i> Reels
+                                </button>
+                            </div>
+                        </div>
+
+                        <form onsubmit="handleCreatePost(event)" class="space-y-4">
+                            <input type="hidden" id="postMediaTypeInput" value="post">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <input type="text" id="postTitleInput" required placeholder="Sarlavha..." class="sm:col-span-2 w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-indigo-500">
+                                <select id="postCategoryInput" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-indigo-500">
+                                    <option value="Maktab Hayoti">🏫 Maktab Hayoti</option>
+                                    <option value="ART & Ijod">🎨 ART & Ijod</option>
+                                    <option value="Bilim & Fan">📐 Bilim & Fan</option>
+                                    <option value="E'lon">📢 E'lon</option>
+                                    <option value="Yutuqlar">🏆 Yutuqlarimiz</option>
+                                </select>
+                            </div>
+                            <textarea id="postBodyInput" rows="2" required placeholder="Fikringiz yoki tavsif yozing..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-indigo-500"></textarea>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <label class="cursor-pointer inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition">
+                                        <i class="fa-solid fa-photo-film text-indigo-600"></i>
+                                        <span id="uploadMediaLabel">Rasm / Video yuklash</span>
+                                        <input type="file" id="postImageFile" accept="image/*,video/*" class="hidden" onchange="previewPostImage(event)">
+                                    </label>
+                                    <input type="url" id="postImageUrl" placeholder="yoki rasm/video havolasi..." class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs w-48 focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm shadow-md shadow-indigo-500/25 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-paper-plane"></i> <span>Chop etish</span>
+                                </button>
+                            </div>
+                            <div id="postImgPreviewWrap" class="hidden relative w-full max-h-60 overflow-hidden rounded-2xl border border-slate-200 bg-slate-900">
+                                <img id="postImgPreview" src="" alt="Preview" class="w-full h-48 object-cover hidden">
+                                <video id="postVideoPreview" src="" controls class="w-full h-52 object-contain hidden"></video>
+                                <button type="button" onclick="clearPostImage()" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Feed Filter Pills -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1">
+                        <button onclick="setFeedFilter('all')" id="feedFilterAll" class="px-4 py-1.5 rounded-full text-xs font-bold bg-slate-900 text-white transition">Barchasi</button>
+                        <button onclick="setFeedFilter('following')" id="feedFilterFollowing" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition">Obunalarim</button>
+                        <button onclick="setFeedFilter('reposts')" id="feedFilterReposts" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition">Repostlar</button>
+                    </div>
+
+                    <!-- Posts Feed Container -->
+                    <div id="postsFeedList" class="space-y-6"></div>
+                </div>
+
+                <!-- Right Sidebar Column -->
+                <div class="space-y-6">
+                    <!-- Featured Sinf Rahbari Card -->
+                    <div class="bg-white/95 rounded-3xl p-6 border border-slate-200 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-r from-violet-600 to-indigo-600"></div>
+                        <div class="relative pt-8 text-center">
+                            <div class="w-20 h-20 rounded-2xl bg-white p-1 mx-auto shadow-md mb-3">
+                                <div id="homeroomAvatarBox" class="w-full h-full rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white flex items-center justify-center font-extrabold text-2xl">
+                                    KJ
+                                </div>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold mb-2">
+                                <i class="fa-solid fa-palette"></i> Sinf Rahbari & ART Ustozi
+                            </span>
+                            <h3 class="text-lg font-extrabold text-slate-900">Kenjebaev Jambil</h3>
+                            <p class="text-xs text-slate-500 mt-1">Fanlar: ART va Kelajak soati</p>
+                        </div>
+                    </div>
+
+                    <!-- Top 5 Rating Mini-Leaderboard -->
+                    <div class="bg-white/95 rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-crown text-amber-500"></i>
+                                <span>Top 5 Reyting</span>
+                            </h3>
+                            <button onclick="switchMainTab('students')" class="text-xs font-semibold text-indigo-600 hover:underline">Barchasi →</button>
+                        </div>
+                        <div id="miniLeaderboard" class="space-y-3"></div>
+                    </div>
+
+                    <!-- Maktab Games Quick Card -->
+                    <div class="bg-gradient-to-br from-emerald-700 to-teal-800 rounded-3xl p-6 text-white shadow-lg space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center text-amber-300 text-xl">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-base">7-B Maktab O'yinlari</h3>
+                                <p class="text-[11px] text-emerald-100">O'yna va reyting balini oshir!</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-emerald-50 leading-relaxed">
+                            Matematika sprint, Xotira o'yini va Krestik-Nolikda g'alaba qozonib reytingda yuqoriga ko'tariling.
+                        </p>
+                        <button onclick="switchMainTab('games')" class="w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition shadow-md">
+                            <i class="fa-solid fa-play mr-1"></i> O'yinlarni boshlash
+                        </button>
+                    </div>
+
+                    <!-- Quick Login Prompt if Guest -->
+                    <div id="guestSidebarPrompt" class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 text-white shadow-lg">
+                        <h4 class="font-bold text-base mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-key text-amber-400"></i>
+                            <span>Tizimga kiring!</span>
+                        </h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                            O'yinlarda ball yig'ish, istoriya va reels qo'yish hamda chatda yozish uchun shaxsiy login va parolingiz bilan kiring.
+                        </p>
+                        <button onclick="openLoginModal()" class="w-full py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-600 font-semibold text-sm transition shadow-md">
+                            Kirish (Login)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: REELS ==================== -->
+        <section id="tab-reels" class="tab-section hidden space-y-6">
+            <div class="max-w-xl mx-auto space-y-6">
+                <div class="bg-white/95 rounded-3xl p-5 border border-slate-200 shadow-sm flex items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-clapperboard text-rose-500"></i>
+                            <span>7-B Maktab Reels</span>
+                        </h2>
+                        <p class="text-xs text-slate-500">Qisqa maktab videolari, plastilin animatsiyalar va dars lavhalari</p>
+                    </div>
+                    <button onclick="quickCreateReel()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-md transition shrink-0">
+                        <i class="fa-solid fa-plus mr-1"></i> Reels qo'shish
+                    </button>
+                </div>
+                <div id="reelsFeedContainer" class="space-y-6"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: CLASS CHAT & DIRECT MESSAGES ==================== -->
+        <section id="tab-chat" class="tab-section hidden space-y-6">
+            <div class="bg-white/95 rounded-3xl border border-slate-200 shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-3 min-h-[560px]">
+                <div class="border-b md:border-b-0 md:border-r border-slate-200 bg-slate-50/70 p-4 flex flex-col">
+                    <h3 class="font-extrabold text-slate-900 text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-indigo-600"></i>
+                        <span>Suhbatlar</span>
+                    </h3>
+                    <button onclick="selectChatRoom('general')" id="chatRoomBtn_general" class="w-full text-left p-3 rounded-2xl bg-indigo-600 text-white font-bold text-xs mb-3 flex items-center justify-between shadow-sm transition">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center font-extrabold">7-B</div>
+                            <div>
+                                <div>Umumiy Sinf Chati</div>
+                                <div class="text-[10px] opacity-80 font-normal">Barcha 24 o'quvchi va ustozlar</div>
+                            </div>
+                        </div>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    </button>
+
+                    <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-1">Shaxsiy xabarlar (Sinfdoshlar)</div>
+                    <div id="chatUsersList" class="space-y-1.5 overflow-y-auto max-h-[380px] pr-1"></div>
+                </div>
+
+                <div class="md:col-span-2 flex flex-col justify-between bg-white">
+                    <div id="chatHeaderBar" class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/40">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl hero-bg text-white flex items-center justify-center font-extrabold text-sm">7-B</div>
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-sm">7-B Umumiy Sinf Chati</h4>
+                                <p class="text-[11px] text-emerald-600 font-semibold">● Maktab ichki tarmog'i faol</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chatMessagesContainer" class="flex-1 p-4 sm:p-5 space-y-3 overflow-y-auto max-h-[400px] bg-slate-50/30"></div>
+
+                    <form onsubmit="handleSendChatMessage(event)" class="p-3 sm:p-4 border-t border-slate-200 bg-white flex items-center gap-2">
+                        <input type="text" id="chatMessageInput" required placeholder="Xabar yozing..." class="flex-1 px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:bg-white">
+                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition flex items-center gap-2">
+                            <span>Yuborish</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: MAKTAB GAMES (+RATING POINTS) ==================== -->
+        <section id="tab-games" class="tab-section hidden space-y-6">
+            <div class="bg-white/95 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+                    <div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold mb-2">
+                            <i class="fa-solid fa-gamepad"></i> Aqliy va Maktab O'yinlari
+                        </span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">O'yna va Sinf Reytingida Ball To'pla!</h2>
+                        <p class="text-sm text-slate-500">Har bir g'alaba tizimga kirgan o'quvchining reytingiga avtomatik ball qo'shadi</p>
+                    </div>
+                    <div id="gameUserPointsBadge" class="px-4 py-2.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-extrabold">
+                        Kirish qiling: ballar reytingga yoziladi
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- GAME 1: MATH SPEED SPRINT -->
+                    <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 rounded-xl bg-indigo-100 text-indigo-700 text-xs font-extrabold">📐 Matematika Sprint</span>
+                                <span class="text-xs font-bold text-emerald-600">+1 ball / 3 javob</span>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-lg mb-1">Tezkor Hisob (30 soniya)</h3>
+                            <p class="text-xs text-slate-500 mb-4">30 soniya ichida iloji boricha ko'proq misolni to'g'ri yeching!</p>
+
+                            <div id="mathGameBox" class="bg-white rounded-2xl p-5 border border-slate-200 text-center space-y-3">
+                                <div class="flex justify-between text-xs font-bold text-slate-500">
+                                    <span>Vaqt: <strong id="mathTimerText" class="text-rose-600">30s</strong></span>
+                                    <span>To'g'ri: <strong id="mathScoreText" class="text-emerald-600">0</strong></span>
+                                </div>
+                                <div id="mathQuestionText" class="text-2xl font-extrabold text-slate-900 py-3">Tayyormisiz?</div>
+                                <div id="mathControlsArea">
+                                    <button onclick="startMathGame()" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition">
+                                        O'yinni boshlash
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GAME 2: MEMORY CARDS (SCHOOL SUBJECTS) -->
+                    <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 rounded-xl bg-violet-100 text-violet-700 text-xs font-extrabold">🧠 Xotira O'yini</span>
+                                <span class="text-xs font-bold text-emerald-600">+3 ball / g'alaba</span>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-lg mb-1">Juftini Top (Fanlar)</h3>
+                            <p class="text-xs text-slate-500 mb-4">Bir xil maktab belgilarini ochib barcha 6 juftlikni toping.</p>
+
+                            <div class="bg-white rounded-2xl p-4 border border-slate-200">
+                                <div class="flex justify-between text-xs font-bold text-slate-500 mb-3">
+                                    <span>Urinishlar: <strong id="memoryMovesText">0</strong></span>
+                                    <button onclick="initMemoryGame()" class="text-indigo-600 hover:underline">Qayta boshlash</button>
+                                </div>
+                                <div id="memoryGrid" class="grid grid-cols-4 gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GAME 3: TIC-TAC-TOE VS BOT -->
+                    <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 rounded-xl bg-amber-100 text-amber-800 text-xs font-extrabold">❌⭕ Krestik-Nolik</span>
+                                <span class="text-xs font-bold text-emerald-600">+5 ball / g'alaba</span>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-lg mb-1">Krestik-Nolik (X-O)</h3>
+                            <p class="text-xs text-slate-500 mb-4">Raqibni mag'lub eting va +5 reyting balini qo'lga kiriting!</p>
+
+                            <div class="bg-white rounded-2xl p-4 border border-slate-200 text-center">
+                                <div id="tttStatusText" class="text-xs font-extrabold text-indigo-700 mb-3">Sizning navbatingiz (X)</div>
+                                <div id="tttBoardGrid" class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto mb-3"></div>
+                                <button onclick="initTttGame()" class="px-4 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+                                    Yangi partiya
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: STUDENTS, SUBSCRIPTIONS & RATING ==================== -->
+        <section id="tab-students" class="tab-section hidden space-y-6">
+            <div class="bg-white/95 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">7-B Sinfdoshlar, Obuna va Reyting</h2>
+                        <p class="text-sm text-slate-500">Sinfdoshlaringizga obuna bo'ling, profilini ko'ring va reyting ballarini kuzating</p>
+                    </div>
+                    <div id="teacherGradeQuickBtnArea"></div>
+                </div>
+
+                <!-- Top 3 Podium Cards -->
+                <div id="podiumGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"></div>
+
+                <!-- Search & Sort Bar -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-6 border-b border-slate-100">
+                    <div class="relative flex-1 max-w-md">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="text" id="studentSearchInput" oninput="renderStudentsTab()" placeholder="Ism, familiya yoki otchestva bo'yicha qidirish..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-500">Saralash:</span>
+                        <select id="studentSortSelect" onchange="renderStudentsTab()" class="px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 focus:outline-none focus:border-indigo-500">
+                            <option value="number">🔢 Ro'yxat tartibi (1-24)</option>
+                            <option value="rating">🏆 Reyting bo'yicha (Yuqori)</option>
+                            <option value="followers">👥 Obunachilar soni bo'yicha</option>
+                            <option value="name">🔤 Alifbo bo'yicha (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- All 24 Students Grid -->
+                <div id="allStudentsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pt-6"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 6: HOMEWORK ==================== -->
+        <section id="tab-homework" class="tab-section hidden space-y-6">
+            <div id="addHomeworkCard" class="hidden bg-white/95 rounded-3xl p-6 border border-emerald-200 shadow-md">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900">Yangi uyga vazifa berish</h3>
+                        <p class="text-xs text-slate-500">O'quvchilar uchun fan bo'yicha topshiriq qo'shish</p>
+                    </div>
+                </div>
+                <form onsubmit="handleAddHomework(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Fan nomi</label>
+                        <select id="hwSubjectInput" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-500"></select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Topshirish muddati</label>
+                        <input type="date" id="hwDeadlineInput" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Vazifa tavsifi</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="hwTaskInput" required placeholder="Masalan: 45-bet, 12-15 misollarni yechish..." class="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm shadow-md transition shrink-0">
+                                Qo'shish
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white/95 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Uyga Vazifalar Ro'yxati</h2>
+                        <p class="text-sm text-slate-500">Barcha fanlardan berilgan dolzarb topshiriqlar</p>
+                    </div>
+                    <select id="hwFilterSubject" onchange="renderHomeworkTab()" class="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 focus:outline-none focus:border-indigo-500">
+                        <option value="ALL">📚 Barcha fanlar</option>
+                    </select>
+                </div>
+
+                <div id="homeworkListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 7: TIMETABLE ==================== -->
+        <section id="tab-schedule" class="tab-section hidden space-y-6">
+            <div class="bg-white/95 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-700 mb-2">Rasmiy Jadval</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">7-B Sinf Dars Jadvali</h2>
+                        <p class="text-sm text-slate-500">Dushanba — Juma • 1-8 soatlar (08:30 — 15:05)</p>
+                    </div>
+                    <div id="todayHighlightBadge" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold">
+                        <i class="fa-solid fa-clock"></i>
+                        <span id="todayDayLabel">Bugun: Chorshanba</span>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                    <table class="w-full text-left border-collapse min-w-[900px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-xs uppercase tracking-wider border-b border-slate-200">
+                                <th class="py-3.5 px-3 font-extrabold text-center w-12">#</th>
+                                <th class="py-3.5 px-3 font-extrabold w-28">Vaqt</th>
+                                <th class="py-3.5 px-3 font-extrabold" data-col-day="1">Dushanba</th>
+                                <th class="py-3.5 px-3 font-extrabold" data-col-day="2">Seshanba</th>
+                                <th class="py-3.5 px-3 font-extrabold" data-col-day="3">Chorshanba</th>
+                                <th class="py-3.5 px-3 font-extrabold" data-col-day="4">Payshanba</th>
+                                <th class="py-3.5 px-3 font-extrabold" data-col-day="5">Juma</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fullTimetableBody" class="divide-y divide-slate-200 text-xs"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 8: TEACHERS & SCHOOL INFO ==================== -->
+        <section id="tab-school" class="tab-section hidden space-y-6">
+            <div class="bg-white/95 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-bold">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span>Maktab haqida ma'lumot</span>
+                    </div>
+                    <h2 id="schoolTitleDisplay" class="text-2xl sm:text-3xl font-extrabold text-slate-900"></h2>
+                    <p id="schoolDescDisplay" class="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line"></p>
+                </div>
+            </div>
+
+            <div class="bg-white/95 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-extrabold text-slate-900">7-B Sinfi Ustozlari (20 nafar)</h3>
+                    <p class="text-sm text-slate-500">Ustozlarga ham obuna bo'lishingiz mumkin</p>
+                </div>
+                <div id="teachersDirectoryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 9: PERSONAL PROFILE ==================== -->
+        <section id="tab-profile" class="tab-section hidden space-y-6">
+            <div id="personalProfileContainer" class="max-w-3xl mx-auto bg-white/95 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm"></div>
+        </section>
+
+        <!-- ==================== TAB 10: ADMIN PANEL ==================== -->
+        <section id="tab-admin" class="tab-section hidden space-y-6">
+            <div class="bg-white/95 rounded-3xl p-6 sm:p-8 border border-rose-200 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                    <div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold mb-2">
+                            <i class="fa-solid fa-shield-halved"></i> Boshqaruv Markazi
+                        </span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Admin Panel — Foydalanuvchilar, Fon va Maktab Boshqaruvi</h2>
+                        <p class="text-sm text-slate-500">Login/parollarni boshqarish, Yordamchi Admin tayinlash va maktab fonini sozlash</p>
+                    </div>
+                    <button onclick="resetAllPortalData()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-rose-100 text-slate-600 hover:text-rose-700 text-xs font-bold transition self-start">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Barchasini 0 ga qaytarish
+                    </button>
+                </div>
+
+                <!-- School Background Customization -->
+                <div class="bg-indigo-50/60 rounded-2xl p-5 border border-indigo-200/80 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-image text-indigo-600"></i>
+                                <span>Sayt orqa foniga Maktab rasmini qo'shish</span>
+                            </h3>
+                        </div>
+                        <button onclick="removeSchoolBackground()" class="px-3 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-rose-600 border border-slate-200 text-xs font-bold transition self-start">
+                            Fonni olib tashlash
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+                        <label class="cursor-pointer flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition">
+                            <i class="fa-solid fa-upload"></i>
+                            <span>Maktab rasmini yuklash</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="handleSchoolBgUpload(event)">
+                        </label>
+                        <div class="sm:col-span-2 flex gap-2">
+                            <input type="url" id="adminBgUrlInput" placeholder="Yoki rasm havolasini (URL) kiriting..." class="flex-1 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+                            <button onclick="applySchoolBgUrl()" class="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-bold">Qo'llash</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-semibold text-slate-600">Fon yorqinligi:</span>
+                        <input type="range" id="adminBgOpacityInput" min="20" max="95" value="82" oninput="updateSchoolBgStyle()" class="w-full max-w-xs accent-indigo-600">
+                        <span id="adminBgOpacityLabel" class="text-xs font-bold text-indigo-700">82%</span>
+                    </div>
+                </div>
+
+                <!-- Users Filter & Table -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                    <input type="text" id="adminUserSearch" oninput="renderAdminUsersTable()" placeholder="Foydalanuvchi ismi yoki loginini qidirish..." class="flex-1 max-w-md px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+                    <select id="adminRoleFilter" onchange="renderAdminUsersTable()" class="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700">
+                        <option value="ALL">Barcha foydalanuvchilar (44)</option>
+                        <option value="student">O'quvchilar (24)</option>
+                        <option value="teacher">Ustozlar (20)</option>
+                        <option value="admins">Adminlar</option>
+                    </select>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                    <table class="w-full text-left border-collapse min-w-[820px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 text-xs uppercase border-b border-slate-200">
+                                <th class="py-3 px-4 font-bold">F.I.O</th>
+                                <th class="py-3 px-4 font-bold">Toifa</th>
+                                <th class="py-3 px-4 font-bold">Login</th>
+                                <th class="py-3 px-4 font-bold">Parol</th>
+                                <th class="py-3 px-4 font-bold">Rol</th>
+                                <th class="py-3 px-4 font-bold text-right">Saqlash</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTableBody" class="divide-y divide-slate-200 text-xs"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 bg-white/95 border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex items-center gap-2 font-semibold text-slate-700">
+                <span class="w-6 h-6 rounded-lg hero-bg text-white flex items-center justify-center font-bold text-[10px]">7B</span>
+                <span>7-B Sinfi Rasmiy Maktab Portali • Qo'ng'irot tumani Ixtisoslashtirilgan maktab-internati</span>
+            </div>
+            <div>Bosh Admin: <strong class="text-slate-700">Rametullayev Sayidbek</strong> • Sinf Rahbari: <strong class="text-slate-700">Kenjebaev Jambil (ART)</strong></div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- 1. LOGIN MODAL -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 my-8 relative">
+            <button onclick="closeLoginModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl hero-bg text-white flex items-center justify-center font-extrabold text-xl shadow-md">7-B</div>
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900">Portalga Kirish</h3>
+                    <p class="text-xs text-slate-500">Shaxsiy login va maxfiy parolingizni kiriting</p>
+                </div>
+            </div>
+            <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Login</label>
+                    <input type="text" id="loginUsernameInput" required placeholder="Loginingizni kiriting..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Parol</label>
+                    <input type="password" id="loginPasswordInput" required placeholder="••••••••" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg transition">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Tizimga kirish
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. ADD STORY MODAL -->
+    <div id="addStoryModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 relative">
+            <button onclick="closeAddStoryModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-lg font-extrabold text-slate-900 mb-1">Yangi Istoriya (Story)</h3>
+            <p class="text-xs text-slate-500 mb-4">Maktab hayotidan rasm yoki qisqa e'lon ulashing</p>
+            <form onsubmit="handleCreateStory(event)" class="space-y-4">
+                <div>
+                    <input type="file" id="storyFileInput" accept="image/*" onchange="previewStoryFile(event)" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-50 file:text-indigo-700">
+                    <input type="url" id="storyUrlInput" placeholder="yoki rasm havolasi (URL)..." class="mt-2 w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div id="storyPreviewBox" class="hidden rounded-2xl overflow-hidden border border-slate-200 max-h-48">
+                    <img id="storyPreviewImg" src="" class="w-full h-44 object-cover">
+                </div>
+                <input type="text" id="storyCaptionInput" placeholder="Istoriya matni..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 text-white font-bold text-sm shadow-md">
+                    Istoriyani joylash
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. STORY VIEWER MODAL -->
+    <div id="viewStoryModal" class="fixed inset-0 z-[70] hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative max-w-sm w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/15 shadow-2xl">
+            <div class="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/80 to-transparent z-10 flex items-center justify-between">
+                <div id="storyViewerAuthor" class="flex items-center gap-2.5 text-white"></div>
+                <button onclick="closeViewStoryModal()" class="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="storyViewerMedia" class="w-full h-[460px] flex items-center justify-center bg-slate-800"></div>
+            <div id="storyViewerCaption" class="p-4 bg-slate-900 text-white text-sm font-medium text-center"></div>
+        </div>
+    </div>
+
+    <!-- 4. STUDENT DETAIL MODAL -->
+    <div id="studentDetailModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 relative">
+            <button onclick="closeStudentDetailModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="studentDetailContent"></div>
+        </div>
+    </div>
+
+    <!-- 5. GRADE MODAL -->
+    <div id="gradeModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-200 relative">
+            <button onclick="closeGradeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-lg font-extrabold text-slate-900 mb-4">Baho va Reyting Qo'yish</h3>
+            <form onsubmit="handleGradeSubmit(event)" class="space-y-4">
+                <select id="gradeStudentSelect" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold"></select>
+                <div class="grid grid-cols-2 gap-3">
+                    <select id="gradeSubjectSelect" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold"></select>
+                    <select id="gradePointsSelect" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-indigo-700">
+                        <option value="5">5 (A'lo) — +5 ball</option>
+                        <option value="4">4 (Yaxshi) — +4 ball</option>
+                        <option value="3">3 (Qoniqarli) — +3 ball</option>
+                        <option value="10">🏆 Olimpiada — +10 ball</option>
+                    </select>
+                </div>
+                <input type="text" id="gradeCommentInput" placeholder="Izoh (ixtiyoriy)..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+                <button type="submit" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md">
+                    Bahoni saqlash
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT DATA & LOGIC ==================== -->
+    <script>
+        const STORAGE_KEY = 'qongirot_7b_portal_v5';
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        const INITIAL_TEACHERS = [
+            { id: 't_jambil', fullName: 'Kenjebaev Jambil', subject: 'ART / Kelajak soati', login: 'jambil', password: 'art#901', role: 'homeroom_teacher', bio: "7-B sinf rahbari va ART fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_atabek', fullName: 'Toremuratov Atabek', subject: 'Fizika', login: 'atabek', password: 'fiz#412', role: 'teacher', bio: "Fizika fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_paxratdin', fullName: 'Jalgasov Paxratdin', subject: 'Fizika', login: 'paxratdin', password: 'fiz#738', role: 'teacher', bio: "Fizika fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_sevara', fullName: 'Tangriberganova Sevara', subject: "O'zbek-tili", login: 'sevara', password: 'uzb#519', role: 'teacher', bio: "O'zbek tili va adabiyoti fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_raxim', fullName: 'Eshmuratov Raxim', subject: 'Matematika', login: 'raxim', password: 'mat#824', role: 'teacher', bio: "Matematika fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_kamal', fullName: 'Kutibaev Kamal', subject: 'Matematika', login: 'kamal', password: 'mat#365', role: 'teacher', bio: "Matematika fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_indira', fullName: 'Kalbaeva Indira', subject: 'Geografiya', login: 'indira', password: 'geo#641', role: 'teacher', bio: "Geografiya fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_asqar', fullName: 'Jumagaliev Asqar', subject: 'Tariyx', login: 'asqar', password: 'tar#297', role: 'teacher', bio: "Tarix fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_asadbek', fullName: 'Utegenov Asadbek', subject: 'Texnologiya / Informatika', login: 'asadbek', password: 'tex#953', role: 'teacher', bio: "Texnologiya va Informatika fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_nilufar', fullName: 'Babadjanova Nilufar', subject: 'Shet-tili', login: 'nilufar', password: 'eng#184', role: 'teacher', bio: "Ingliz tili fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_shafiqa', fullName: 'Salaeva Shafiqa', subject: 'Shet-tili', login: 'shafiqa', password: 'eng#672', role: 'teacher', bio: "Ingliz tili fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_kuatbai', fullName: 'Jarekeev Kuatbai', subject: 'Qaraqalpaq-tili', login: 'kuatbai', password: 'qrq#408', role: 'teacher', bio: "Qoraqalpoq tili va adabiyoti fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_guljaxan_qq', fullName: 'Rzamuratova Guljaxan', subject: 'Qaraqalpaq-tili', login: 'guljaxan_qq', password: 'qrq#892', role: 'teacher', bio: "Qoraqalpoq tili fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_manzura', fullName: 'Ismailova Manzura', subject: 'Dene tarbiya', login: 'manzura', password: 'spo#531', role: 'teacher', bio: "Jismoniy tarbiya fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_guljaxan_bio', fullName: 'Nazarbaeva Guljaxan', subject: 'Biologiya', login: 'guljaxan_bio', password: 'bio#714', role: 'teacher', bio: "Biologiya fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_rustem', fullName: 'Aybergenov Rustem', subject: 'Ximiya', login: 'rustem', password: 'xim#269', role: 'teacher', bio: "Kimyo fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_turlan', fullName: 'Sabitov Turlan', subject: 'Informatika', login: 'turlan', password: 'inf#946', role: 'teacher', bio: "Informatika va axborot texnologiyalari fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_gulmira', fullName: "Djalg'asbaeva Gulmira", subject: 'Tarbiya', login: 'gulmira', password: 'trb#382', role: 'teacher', bio: "Tarbiya fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_dilbar', fullName: 'Djumamuratova Dilbar', subject: 'Rus-tili', login: 'dilbar', password: 'rus#615', role: 'teacher', bio: "Rus tili fani o'qituvchisi.", avatar: '', followers: [], following: [] },
+            { id: 't_temurbek', fullName: 'Xudaynazarov Temurbek', subject: 'Rus-tili', login: 'temurbek', password: 'rus#847', role: 'teacher', bio: "Rus tili fani o'qituvchisi.", avatar: '', followers: [], following: [] }
+        ];
+
+        const INITIAL_STUDENTS = [
+            { id: 's_1', num: 1, fullName: 'Abdiualitov Rasul Yusupbek uli', birthday: '31.03.2014', login: 'rasul', password: 'rsl#3104', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_2', num: 2, fullName: 'Akbarova Asal Anvarovna', birthday: '13.10.2013', login: 'asal_a', password: 'asl#1310', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_3', num: 3, fullName: 'Djoldasbayev Jamshid Ikramjanovich', birthday: '27.07.2013', login: 'jamshid', password: 'jmsh#2707', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_4', num: 4, fullName: 'Gulmurzayeva Mirzagul Jalgasbaevna', birthday: '16.02.2013', login: 'mirzagul', password: 'mrz#1602', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_5', num: 5, fullName: 'Jaksilikov Farrux Furkat uli', birthday: '19.05.2013', login: 'farrux', password: 'frx#1905', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_6', num: 6, fullName: 'Jalgashova Asal Klichbay qizi', birthday: '10.08.2013', login: 'asal_j', password: 'asj#1008', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_7', num: 7, fullName: "Aytbayev Abrorbek Nurfat o‘g‘li", birthday: '05.10.2013', login: 'abrorbek', password: 'abr#0510', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_8', num: 8, fullName: 'Jubandikov Sardor Gaybulla uli', birthday: '31.10.2013', login: 'sardor', password: 'srd#3110', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_9', num: 9, fullName: 'Kamiljanova Mohinur Zakirjon qizi', birthday: '02.04.2014', login: 'mohinur', password: 'mhn#0204', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_10', num: 10, fullName: 'Utemuratova Umida Baxtibay qizi', birthday: '14.04.2013', login: 'umida', password: 'umd#1404', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_11', num: 11, fullName: 'Kumekbayev Bekzod Uktam uli', birthday: '08.11.2013', login: 'bekzod', password: 'bkz#0811', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_12', num: 12, fullName: 'Oralbayev Elnur Sulayman uli', birthday: '19.11.2013', login: 'elnur', password: 'eln#1911', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_13', num: 13, fullName: 'Rametullayev Sayidbek Alisherovich', birthday: '23.10.2013', login: 'sayidbek', password: 'admin7b', role: 'super_admin', rating: 0, bio: "7-B sinf portali yaratuvchisi va Bosh Admin.", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_14', num: 14, fullName: 'Sanetullayev Islambek Kudaybergen uli', birthday: '05.08.2013', login: 'islambek', password: 'isl#0508', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_15', num: 15, fullName: 'Tengelbayev Sunnatillo Shuxrat uli', birthday: '20.11.2013', login: 'sunnatillo', password: 'snn#2011', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_16', num: 16, fullName: 'Yembergenov Jasurbek Turganbek uli', birthday: '15.10.2013', login: 'jasurbek_y', password: 'jsy#1510', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_17', num: 17, fullName: 'Yenibayev Bunyodbek Davron uli', birthday: '18.09.2013', login: 'bunyodbek', password: 'bny#1809', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_18', num: 18, fullName: 'Polatov Jahongir Shuxratovich', birthday: '05.10.2013', login: 'jahongir', password: 'jhg#0510', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_19', num: 19, fullName: 'Jumabayeva Intizar Farxadovna', birthday: '09.02.2014', login: 'intizar', password: 'int#0902', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_20', num: 20, fullName: 'Torebayev Javohir Baxatovich', birthday: '12.01.2014', login: 'javohir', password: 'jvh#1201', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_21', num: 21, fullName: 'Aziev Jandarbek Janibekovich', birthday: '28.04.2013', login: 'jandarbek', password: 'jnd#2804', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_22', num: 22, fullName: 'Kongratbayev Maqset Turdibay uli', birthday: '19.02.2013', login: 'maqset', password: 'mqs#1902', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_23', num: 23, fullName: 'Artikbaeva Jasmina Bauirjanovna', birthday: '10.02.2013', login: 'jasmina', password: 'jsm#1002', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] },
+            { id: 's_24', num: 24, fullName: "Ermakbaev Jasurbek Gafurjon o'g'li", birthday: '12.01.2014', login: 'jasurbek_e', password: 'jse#1201', role: 'student', rating: 0, bio: "", avatar: '', grades: [], followers: [], following: [] }
+        ];
+
+        const TIMETABLE_ROWS = [
+            { num: 1, time: '08:30-09:15', days: [
+                { subject: 'Kelajak soati', teachers: 'Kenjebaev Jambil', bg: 'bg-indigo-200/80 border-indigo-300 text-indigo-950' },
+                { subject: 'Fizika', teachers: 'Toremuratov Atabek | Jalgasov Paxratdin', bg: 'bg-emerald-200/80 border-emerald-300 text-emerald-950' },
+                { subject: "O'zbek-tili", teachers: 'Tangriberganova Sevara', bg: 'bg-lime-200/80 border-lime-300 text-lime-950' },
+                { subject: 'Matematika', teachers: 'Eshmuratov Raxim | Kutibaev Kamal', bg: 'bg-pink-200/80 border-pink-300 text-pink-950' },
+                { subject: "O'zbek-tili", teachers: 'Tangriberganova Sevara', bg: 'bg-lime-200/80 border-lime-300 text-lime-950' }
+            ]},
+            { num: 2, time: '9:20-10:05', days: [
+                { subject: 'Geografiya', teachers: 'Kalbaeva Indira', bg: 'bg-teal-200/80 border-teal-300 text-teal-950' },
+                { subject: 'Matematika', teachers: 'Eshmuratov Raxim | Kutibaev Kamal', bg: 'bg-pink-200/80 border-pink-300 text-pink-950' },
+                { subject: 'Tariyx', teachers: 'Jumagaliev Asqar', bg: 'bg-sky-200/80 border-sky-300 text-sky-950' },
+                { subject: 'Matematika', teachers: 'Eshmuratov Raxim | Kutibaev Kamal', bg: 'bg-pink-200/80 border-pink-300 text-pink-950' },
+                { subject: 'Texnologiya', teachers: 'Utegenov Asadbek', bg: 'bg-fuchsia-200/80 border-fuchsia-300 text-fuchsia-950' }
+            ]},
+            { num: 3, time: '10:10-10:55', days: [
+                { subject: 'Shet-tili', teachers: 'Babadjanova Nilufar | Salaeva Shafiqa', bg: 'bg-purple-200/80 border-purple-300 text-purple-950' },
+                { subject: 'Qaraqalpaq-tili', teachers: 'Jarekeev Kuatbai | Rzamuratova Guljaxan', bg: 'bg-amber-200/80 border-amber-300 text-amber-950' },
+                { subject: 'Matematika', teachers: 'Eshmuratov Raxim | Kutibaev Kamal', bg: 'bg-pink-200/80 border-pink-300 text-pink-950' },
+                { subject: 'Tariyx', teachers: 'Jumagaliev Asqar', bg: 'bg-sky-200/80 border-sky-300 text-sky-950' },
+                { subject: 'Matematika', teachers: 'Eshmuratov Raxim | Kutibaev Kamal', bg: 'bg-pink-200/80 border-pink-300 text-pink-950' }
+            ]},
+            { num: 4, time: '11:00-11:45', days: [
+                { subject: 'Matematika', teachers: 'Eshmuratov Raxim | Kutibaev Kamal', bg: 'bg-pink-200/80 border-pink-300 text-pink-950' },
+                { subject: 'ART', teachers: 'Kenjebaev Jambil', bg: 'bg-violet-300/90 border-violet-400 text-violet-950 ring-2 ring-violet-400/50' },
+                { subject: 'Shet-tili', teachers: 'Babadjanova Nilufar | Salaeva Shafiqa', bg: 'bg-purple-200/80 border-purple-300 text-purple-950' },
+                { subject: 'Fizika', teachers: 'Toremuratov Atabek | Jalgasov Paxratdin', bg: 'bg-emerald-200/80 border-emerald-300 text-emerald-950' },
+                { subject: 'Dene tarbiya', teachers: 'Ismailova Manzura', bg: 'bg-cyan-200/80 border-cyan-300 text-cyan-950' }
+            ]},
+            { num: 5, time: '11:50-12:35', days: [
+                { subject: 'Biologiya', teachers: 'Nazarbaeva Guljaxan', bg: 'bg-blue-200/80 border-blue-300 text-blue-950' },
+                { subject: 'Shet-tili', teachers: 'Babadjanova Nilufar | Salaeva Shafiqa', bg: 'bg-purple-200/80 border-purple-300 text-purple-950' },
+                { subject: 'Ximiya', teachers: 'Aybergenov Rustem', bg: 'bg-teal-200/80 border-teal-300 text-teal-950' },
+                { subject: 'Tariyx', teachers: 'Jumagaliev Asqar', bg: 'bg-sky-200/80 border-sky-300 text-sky-950' },
+                { subject: 'Informatika', teachers: 'Sabitov Turlan | Utegenov Asadbek', bg: 'bg-indigo-200/80 border-indigo-300 text-indigo-950' }
+            ]},
+            { num: 6, time: '12:40-13:25', days: [null, null, null, null, null] },
+            { num: 7, time: '13:30-14:15', days: [
+                { subject: 'Matematika', teachers: 'Eshmuratov Raxim | Kutibaev Kamal', bg: 'bg-pink-200/80 border-pink-300 text-pink-950' },
+                { subject: 'Fizika', teachers: 'Toremuratov Atabek | Jalgasov Paxratdin', bg: 'bg-emerald-200/80 border-emerald-300 text-emerald-950' },
+                { subject: 'Biologiya', teachers: 'Nazarbaeva Guljaxan', bg: 'bg-blue-200/80 border-blue-300 text-blue-950' },
+                { subject: 'Tarbiya', teachers: "Djalg'asbaeva Gulmira", bg: 'bg-rose-200/80 border-rose-300 text-rose-950' },
+                { subject: 'Shet-tili', teachers: 'Babadjanova Nilufar | Salaeva Shafiqa', bg: 'bg-purple-200/80 border-purple-300 text-purple-950' }
+            ]},
+            { num: 8, time: '14:20-15:05', days: [
+                { subject: "O'zbek-tili", teachers: 'Tangriberganova Sevara', bg: 'bg-lime-200/80 border-lime-300 text-lime-950' },
+                { subject: 'Rus-tili', teachers: 'Djumamuratova Dilbar | Xudaynazarov Temurbek', bg: 'bg-green-200/80 border-green-300 text-green-950' },
+                { subject: "O'zbek-tili", teachers: 'Tangriberganova Sevara', bg: 'bg-lime-200/80 border-lime-300 text-lime-950' },
+                { subject: 'Dene tarbiya', teachers: 'Ismailova Manzura', bg: 'bg-cyan-200/80 border-cyan-300 text-cyan-950' },
+                null
+            ]}
+        ];
+
+        let appState = {
+            currentUserId: null,
+            students: [],
+            teachers: [],
+            posts: [],
+            stories: [],
+            chats: {
+                general: [
+                    { id: 'm_init1', senderId: 't_jambil', senderName: 'Kenjebaev Jambil', text: "Assalomu alaykum 7-B sinfi! Yangi maktab portalimiz va sinf chatimiz muborak bo'lsin!", time: "08:30" },
+                    { id: 'm_init2', senderId: 's_13', senderName: 'Rametullayev Sayidbek', text: "Salom hammaga! O'yinlar bo'limida ball to'plab reytingda 1-o'ringa chiqing!", time: "08:35" }
+                ]
+            },
+            homework: [],
+            schoolBackground: { image: '', opacity: 82 },
+            schoolInfo: {
+                title: "Qo'ng'irot tumani Ixtisoslashtirilgan maktab-internati",
+                description: "Qo'ng'irot tumani Ixtisoslashtirilgan maktab-internati o'quvchilarga aniq va tabiiy fanlar, xorijiy tillar hamda zamonaviy axborot texnologiyalarini chuqurlashtirilgan holda o'rgatishga ixtisoslasgan zamonaviy ta'lim maskanidir.\n\n7-B sinfi — aniq fanlar yo'nalishida tahsil oluvchi eng faol va iqtidorli sinflardan biri."
+            }
+        };
+
+        let pendingPostMediaBase64 = '';
+        let pendingPostMediaKind = 'image';
+        let pendingStoryBase64 = '';
+        let currentFeedFilter = 'all';
+        let activeChatRoom = 'general';
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    appState = JSON.parse(raw);
+                    if (!appState.stories) appState.stories = [];
+                    if (!appState.chats) appState.chats = { general: [] };
+                    appState.students.forEach(s => { if (!s.followers) s.followers = []; if (!s.following) s.following = []; });
+                    appState.teachers.forEach(t => { if (!t.followers) t.followers = []; if (!t.following) t.following = []; });
+                } else {
+                    appState.students = JSON.parse(JSON.stringify(INITIAL_STUDENTS));
+                    appState.teachers = JSON.parse(JSON.stringify(INITIAL_TEACHERS));
+                    appState.posts = [
+                        {
+                            id: 'p_welcome',
+                            mediaType: 'post',
+                            authorId: 't_jambil',
+                            authorName: 'Kenjebaev Jambil',
+                            authorRoleLabel: 'Sinf Rahbari • ART Ustozi',
+                            category: 'ART & Ijod',
+                            title: "7-B sinfining ijodiy portali va o'yinlari ishga tushdi!",
+                            body: "Aziz o'quvchilar! Endi o'z rasmlaringiz, plastilin animatsiyalaringizni joylashingiz, sinf chatida yozishishingiz va Maktab O'yinlarida ball to'plashingiz mumkin.",
+                            image: '',
+                            mediaKind: 'image',
+                            date: "Bugun • 09:00",
+                            likes: [],
+                            repostsCount: 0,
+                            comments: []
+                        }
+                    ];
+                    saveState();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+            } catch (e) {
+                showToast("Xotira to'lib qoldi! Kichikroq fayl yuklang.", "error");
+            }
+        }
+
+        function resetAllPortalData() {
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        }
+
+        function awardGamePoints(points, reason) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast(`G'alaba! (+${points} ball). Reytingga yozilishi uchun tizimga kiring!`, "info");
+                return;
+            }
+            if (user.userType !== 'student') {
+                showToast(`Ajoyib natija! (${reason})`, "success");
+                return;
+            }
+            const st = appState.students.find(s => s.id === user.id);
+            if (!st) return;
+            st.rating += points;
+            if (!st.grades) st.grades = [];
+            st.grades.push({
+                subject: "🎮 Maktab O'yinlari",
+                score: points,
+                teacher: "7-B Portal",
+                comment: reason,
+                date: new Date().toLocaleDateString()
+            });
+            saveState();
+            refreshEntireUI();
+            showToast(`Tabriklaymiz! ${reason} uchun +${points} reyting bali qo'shildi! 🏆`, "success");
+        }
+
+        // SCHOOL BACKGROUND
+        window.applySchoolBackgroundToPage = function() {
+            const overlay = document.getElementById('schoolBgOverlay');
+            const bg = appState.schoolBackground || { image: '', opacity: 82 };
+            if (bg.image) {
+                document.body.style.backgroundImage = `url('${bg.image}')`;
+                document.body.style.backgroundSize = 'cover';
+                if (overlay) {
+                    overlay.style.display = 'block';
+                    overlay.style.background = `rgba(248, 250, 252, ${bg.opacity / 100})`;
+                }
+            } else {
+                document.body.style.backgroundImage = '';
+                if (overlay) overlay.style.display = 'none';
+            }
+        };
+
+        window.updateSchoolBgStyle = function() {
+            const slider = document.getElementById('adminBgOpacityInput');
+            const label = document.getElementById('adminBgOpacityLabel');
+            if (!slider) return;
+            const val = parseInt(slider.value, 10) || 82;
+            if (label) label.innerText = `${val}%`;
+            appState.schoolBackground.opacity = val;
+            saveState();
+            window.applySchoolBackgroundToPage();
+        };
+
+        window.handleSchoolBgUpload = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = evt => {
+                appState.schoolBackground.image = evt.target.result;
+                saveState();
+                window.applySchoolBackgroundToPage();
+                showToast("Maktab fon rasmi o'rnatildi!", "success");
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.applySchoolBgUrl = function() {
+            const url = document.getElementById('adminBgUrlInput')?.value.trim();
+            if (!url) return showToast("Havolani kiriting!", "error");
+            appState.schoolBackground.image = url;
+            saveState();
+            window.applySchoolBackgroundToPage();
+            showToast("Fon qo'llandi!", "success");
+        };
+
+        window.removeSchoolBackground = function() {
+            appState.schoolBackground.image = '';
+            saveState();
+            window.applySchoolBackgroundToPage();
+            showToast("Fon olib tashlandi.", "info");
+        };
+
+        // USER HELPERS
+        function getAllUsers() {
+            return [
+                ...appState.students.map(s => ({ ...s, userType: 'student' })),
+                ...appState.teachers.map(t => ({ ...t, userType: 'teacher' }))
+            ];
+        }
+
+        function findUserRecord(userId) {
+            return appState.students.find(s => s.id === userId) || appState.teachers.find(t => t.id === userId) || null;
+        }
+
+        function getCurrentUser() {
+            if (!appState.currentUserId) return null;
+            return getAllUsers().find(u => u.id === appState.currentUserId) || null;
+        }
+
+        function isAdmin(user) {
+            return user && (user.role === 'super_admin' || user.role === 'assistant_admin');
+        }
+
+        function canGradeOrAssign(user) {
+            return user && (user.role === 'teacher' || user.role === 'homeroom_teacher' || user.role === 'super_admin' || user.role === 'assistant_admin');
+        }
+
+        function getRoleBadgeHTML(role) {
+            switch (role) {
+                case 'super_admin': return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-700"><i class="fa-solid fa-crown text-[10px]"></i> Bosh Admin</span>`;
+                case 'assistant_admin': return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800"><i class="fa-solid fa-shield text-[10px]"></i> Yordamchi Admin</span>`;
+                case 'homeroom_teacher': return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-violet-100 text-violet-700"><i class="fa-solid fa-palette text-[10px]"></i> Sinf Rahbari</span>`;
+                case 'teacher': return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700"><i class="fa-solid fa-chalkboard-user text-[10px]"></i> Ustoz</span>`;
+                default: return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-100 text-indigo-700"><i class="fa-solid fa-user-graduate text-[10px]"></i> O'quvchi</span>`;
+            }
+        }
+
+        function getInitials(name) {
+            const parts = name.trim().split(/\s+/);
+            return parts.length >= 2 ? (parts[0][0] + parts[1][0]).toUpperCase() : name.slice(0, 2).toUpperCase();
+        }
+
+        function renderAvatar(user, sizeClasses = "w-10 h-10 text-sm") {
+            if (user && user.avatar) {
+                return `<img src="${escapeHTML(user.avatar)}" alt="${escapeHTML(user.fullName)}" class="${sizeClasses} rounded-2xl object-cover border border-slate-200 shrink-0">`;
+            }
+            const gradients = ['from-indigo-500 to-blue-600', 'from-violet-500 to-purple-600', 'from-emerald-500 to-teal-600', 'from-amber-500 to-orange-600', 'from-rose-500 to-pink-600', 'from-cyan-500 to-sky-600'];
+            const idx = (user?.fullName?.length || 0) % gradients.length;
+            return `<div class="${sizeClasses} rounded-2xl bg-gradient-to-br ${gradients[idx]} text-white font-extrabold flex items-center justify-center shrink-0 shadow-sm">${getInitials(user?.fullName || '7B')}</div>`;
+        }
+
+        // FOLLOW / SUBSCRIBE
+        function toggleFollowUser(targetId) {
+            const current = getCurrentUser();
+            if (!current) {
+                showToast("Obuna bo'lish uchun avval tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            if (current.id === targetId) return;
+
+            const meRecord = findUserRecord(current.id);
+            const targetRecord = findUserRecord(targetId);
+            if (!meRecord || !targetRecord) return;
+
+            if (!meRecord.following) meRecord.following = [];
+            if (!targetRecord.followers) targetRecord.followers = [];
+
+            const idx = meRecord.following.indexOf(targetId);
+            if (idx === -1) {
+                meRecord.following.push(targetId);
+                targetRecord.followers.push(current.id);
+                showToast(`${targetRecord.fullName}ga obuna bo'ldingiz!`, "success");
+            } else {
+                meRecord.following.splice(idx, 1);
+                targetRecord.followers = targetRecord.followers.filter(id => id !== current.id);
+                showToast(`Obuna bekor qilindi.`, "info");
+            }
+            saveState();
+            refreshEntireUI();
+        }
+
+        function isFollowing(targetId) {
+            const current = getCurrentUser();
+            if (!current || !current.following) return false;
+            return current.following.includes(targetId);
+        }
+
+        // TOASTS
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const styles = { success: 'bg-slate-900 text-white border-emerald-500', error: 'bg-rose-600 text-white border-rose-300', info: 'bg-indigo-600 text-white border-indigo-300' };
+            const icons = { success: 'fa-circle-check text-emerald-400', error: 'fa-circle-exclamation text-white', info: 'fa-circle-info text-indigo-200' };
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl border-l-4 text-xs sm:text-sm font-semibold transition-all duration-300 ${styles[type] || styles.success}`;
+            toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.success} text-base"></i><span>${escapeHTML(message)}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3200);
+        }
+
+        // AUTH
+        function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
+        function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const loginVal = document.getElementById('loginUsernameInput').value.trim().toLowerCase();
+            const passVal = document.getElementById('loginPasswordInput').value.trim();
+            const found = getAllUsers().find(u => u.login.toLowerCase() === loginVal && u.password === passVal);
+            if (!found) return showToast("Login yoki parol noto'g'ri!", "error");
+
+            appState.currentUserId = found.id;
+            saveState();
+            closeLoginModal();
+            document.getElementById('loginUsernameInput').value = '';
+            document.getElementById('loginPasswordInput').value = '';
+            refreshEntireUI();
+            showToast(`Xush kelibsiz, ${found.fullName}!`, "success");
+        }
+
+        function handleLogout() {
+            appState.currentUserId = null;
+            saveState();
+            switchMainTab('feed');
+            refreshEntireUI();
+            showToast("Tizimdan chiqdingiz.", "info");
+        }
+
+        // TABS
+        function switchMainTab(tabName) {
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabName}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                if (btn.dataset.tab === tabName) {
+                    btn.classList.remove('tab-inactive');
+                    btn.classList.add('tab-active');
+                } else {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('tab-inactive');
+                }
+            });
+
+            if (tabName === 'reels') renderReelsTab();
+            if (tabName === 'chat') renderChatTab();
+            if (tabName === 'games') renderGamesTab();
+            if (tabName === 'students') renderStudentsTab();
+            if (tabName === 'homework') renderHomeworkTab();
+            if (tabName === 'schedule') renderScheduleTab();
+            if (tabName === 'school') renderSchoolTab();
+            if (tabName === 'profile') renderProfileTab();
+            if (tabName === 'admin') renderAdminTab();
+        }
+
+        function renderHeaderAuth() {
+            const area = document.getElementById('authHeaderArea');
+            const user = getCurrentUser();
+            const profileTabBtn = document.getElementById('navTabProfile');
+            const adminTabBtn = document.getElementById('navTabAdmin');
+            const createPostCard = document.getElementById('createPostCard');
+            const guestPrompt = document.getElementById('guestSidebarPrompt');
+
+            if (!user) {
+                profileTabBtn.classList.add('hidden');
+                adminTabBtn.classList.add('hidden');
+                createPostCard.classList.add('hidden');
+                if (guestPrompt) guestPrompt.classList.remove('hidden');
+                area.innerHTML = `<button onclick="openLoginModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i><span>Kirish</span></button>`;
+                return;
+            }
+
+            profileTabBtn.classList.remove('hidden');
+            createPostCard.classList.remove('hidden');
+            if (guestPrompt) guestPrompt.classList.add('hidden');
+            if (isAdmin(user)) adminTabBtn.classList.remove('hidden');
+            else adminTabBtn.classList.add('hidden');
+
+            area.innerHTML = `
+                <div onclick="switchMainTab('profile')" class="flex items-center gap-2.5 bg-slate-100 hover:bg-slate-200/70 px-3 py-1.5 rounded-2xl cursor-pointer transition">
+                    ${renderAvatar(user, "w-8 h-8 text-xs")}
+                    <div class="hidden sm:block text-left">
+                        <div class="text-xs font-extrabold text-slate-900 leading-tight max-w-[150px] truncate">${escapeHTML(user.fullName)}</div>
+                        <div class="mt-0.5">${getRoleBadgeHTML(user.role)}</div>
+                    </div>
+                </div>
+                <button onclick="handleLogout()" title="Chiqish" class="px-3 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            `;
+        }
+
+        // STORIES
+        function openAddStoryModal() {
+            if (!getCurrentUser()) {
+                showToast("Istoriya qo'shish uchun avval tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            document.getElementById('addStoryModal').classList.remove('hidden');
+        }
+
+        function closeAddStoryModal() {
+            document.getElementById('addStoryModal').classList.add('hidden');
+            pendingStoryBase64 = '';
+            document.getElementById('storyPreviewBox').classList.add('hidden');
+        }
+
+        function previewStoryFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = evt => {
+                pendingStoryBase64 = evt.target.result;
+                document.getElementById('storyPreviewImg').src = pendingStoryBase64;
+                document.getElementById('storyPreviewBox').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleCreateStory(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) return;
+            const url = document.getElementById('storyUrlInput').value.trim();
+            const caption = document.getElementById('storyCaptionInput').value.trim();
+            const media = pendingStoryBase64 || url;
+            if (!media && !caption) return showToast("Rasm yuklang yoki matn yozing!", "error");
+
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            appState.stories.unshift({
+                id: 'st_' + Date.now(),
+                authorId: user.id,
+                authorName: user.fullName,
+                media,
+                caption,
+                time: timeStr,
+                views: []
+            });
+            saveState();
+            e.target.reset();
+            closeAddStoryModal();
+            renderStoriesBar();
+            showToast("Istoriyangiz 24 soatga joylandi!", "success");
+        }
+
+        function renderStoriesBar() {
+            const container = document.getElementById('storiesBarContainer');
+            const user = getCurrentUser();
+
+            let html = `
+                <div onclick="openAddStoryModal()" class="flex flex-col items-center gap-1.5 cursor-pointer shrink-0 group w-20">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-50 border-2 border-dashed border-indigo-400 flex items-center justify-center text-indigo-600 text-xl group-hover:bg-indigo-100 transition">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 truncate w-full text-center">Qo'shish</span>
+                </div>
+            `;
+
+            html += appState.stories.map(st => {
+                const author = getAllUsers().find(u => u.id === st.authorId) || { fullName: st.authorName, avatar: '' };
+                const seen = user && st.views && st.views.includes(user.id);
+                return `
+                    <div onclick="openViewStory('${st.id}')" class="flex flex-col items-center gap-1.5 cursor-pointer shrink-0 w-20">
+                        <div class="w-16 h-16 rounded-2xl ${seen ? 'story-ring-seen' : 'story-ring'}">
+                            <div class="w-full h-full bg-white rounded-[14px] p-0.5 overflow-hidden flex items-center justify-center">
+                                ${st.media ? `<img src="${escapeHTML(st.media)}" class="w-full h-full object-cover rounded-xl">` : renderAvatar(author, "w-full h-full text-sm")}
+                            </div>
+                        </div>
+                        <span class="text-[11px] font-bold text-slate-800 truncate w-full text-center">${escapeHTML(st.authorName.split(' ')[0])}</span>
+                    </div>
+                `;
+            }).join('');
+
+            if (appState.stories.length === 0) {
+                html += `<div class="text-xs text-slate-400 italic pl-2">Hali istoriyalar yo'q. Birinchi bo'lib maktab hayotidan rasm ulashing!</div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function openViewStory(storyId) {
+            const st = appState.stories.find(s => s.id === storyId);
+            if (!st) return;
+            const user = getCurrentUser();
+            if (user) {
+                if (!st.views) st.views = [];
+                if (!st.views.includes(user.id)) st.views.push(user.id);
+                saveState();
+                renderStoriesBar();
+            }
+
+            const author = getAllUsers().find(u => u.id === st.authorId) || { fullName: st.authorName, avatar: '' };
+            document.getElementById('storyViewerAuthor').innerHTML = `
+                ${renderAvatar(author, "w-9 h-9 text-xs")}
+                <div>
+                    <div class="text-xs font-extrabold">${escapeHTML(st.authorName)}</div>
+                    <div class="text-[10px] text-slate-300">${escapeHTML(st.time)} • 👁 ${(st.views || []).length} ko'rildi</div>
+                </div>
+            `;
+
+            const mediaBox = document.getElementById('storyViewerMedia');
+            mediaBox.innerHTML = st.media
+                ? `<img src="${escapeHTML(st.media)}" class="w-full h-full object-contain">`
+                : `<div class="p-8 text-center text-white font-extrabold text-xl bg-gradient-to-br from-indigo-600 to-purple-700 w-full h-full flex items-center justify-center">${escapeHTML(st.caption)}</div>`;
+            document.getElementById('storyViewerCaption').innerText = st.caption || '';
+            document.getElementById('viewStoryModal').classList.remove('hidden');
+        }
+
+        function closeViewStoryModal() { document.getElementById('viewStoryModal').classList.add('hidden'); }
+
+        // POSTS, REELS & REPOSTS
+        function setCreateMediaType(type) {
+            document.getElementById('postMediaTypeInput').value = type;
+            const postBtn = document.getElementById('typePostBtn');
+            const reelBtn = document.getElementById('typeReelBtn');
+            if (type === 'reel') {
+                reelBtn.className = "px-3 py-1.5 rounded-lg bg-rose-600 text-white shadow-sm transition";
+                postBtn.className = "px-3 py-1.5 rounded-lg text-slate-600 transition";
+                document.getElementById('uploadMediaLabel').innerText = "Reels Video / Rasm";
+            } else {
+                postBtn.className = "px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-sm transition";
+                reelBtn.className = "px-3 py-1.5 rounded-lg text-slate-600 transition";
+                document.getElementById('uploadMediaLabel').innerText = "Rasm / Video yuklash";
+            }
+        }
+
+        function quickCreateReel() {
+            if (!getCurrentUser()) {
+                showToast("Reels joylash uchun tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            switchMainTab('feed');
+            setCreateMediaType('reel');
+            document.getElementById('postTitleInput').focus();
+        }
+
+        function previewPostImage(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const isVideo = file.type.startsWith('video/');
+            pendingPostMediaKind = isVideo ? 'video' : 'image';
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                pendingPostMediaBase64 = evt.target.result;
+                const imgEl = document.getElementById('postImgPreview');
+                const vidEl = document.getElementById('postVideoPreview');
+                document.getElementById('postImgPreviewWrap').classList.remove('hidden');
+                if (isVideo) {
+                    vidEl.src = pendingPostMediaBase64;
+                    vidEl.classList.remove('hidden');
+                    imgEl.classList.add('hidden');
+                } else {
+                    imgEl.src = pendingPostMediaBase64;
+                    imgEl.classList.remove('hidden');
+                    vidEl.classList.add('hidden');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearPostImage() {
+            pendingPostMediaBase64 = '';
+            pendingPostMediaKind = 'image';
+            document.getElementById('postImageFile').value = '';
+            document.getElementById('postImageUrl').value = '';
+            document.getElementById('postImgPreviewWrap').classList.add('hidden');
+        }
+
+        function handleCreatePost(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) return openLoginModal();
+
+            const mediaType = document.getElementById('postMediaTypeInput').value;
+            const title = document.getElementById('postTitleInput').value.trim();
+            const category = document.getElementById('postCategoryInput').value;
+            const body = document.getElementById('postBodyInput').value.trim();
+            const urlImg = document.getElementById('postImageUrl').value.trim();
+            const finalMedia = pendingPostMediaBase64 || urlImg;
+            const mediaKind = pendingPostMediaBase64 ? pendingPostMediaKind : (urlImg.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image');
+
+            const now = new Date();
+            const dateStr = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()} • ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            const roleLabel = user.userType === 'teacher' ? (user.role === 'homeroom_teacher' ? 'Sinf Rahbari' : `Ustoz (${user.subject})`) : "7-B O'quvchisi";
+
+            appState.posts.unshift({
+                id: 'p_' + Date.now(),
+                mediaType,
+                authorId: user.id,
+                authorName: user.fullName,
+                authorRoleLabel: roleLabel,
+                category,
+                title,
+                body,
+                image: finalMedia,
+                mediaKind,
+                date: dateStr,
+                likes: [],
+                repostsCount: 0,
+                comments: []
+            });
+
+            saveState();
+            e.target.reset();
+            clearPostImage();
+            setCreateMediaType('post');
+            refreshEntireUI();
+            showToast(mediaType === 'reel' ? "Yangi Reels joylandi!" : "Yangi post chop etildi!", "success");
+        }
+
+        function repostItem(postId) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast("Repost qilish uchun tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            const orig = appState.posts.find(p => p.id === postId);
+            if (!orig) return;
+
+            orig.repostsCount = (orig.repostsCount || 0) + 1;
+            const now = new Date();
+            const dateStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            appState.posts.unshift({
+                id: 'rp_' + Date.now(),
+                mediaType: orig.mediaType || 'post',
+                isRepost: true,
+                repostedById: user.id,
+                repostedByName: user.fullName,
+                authorId: orig.authorId,
+                authorName: orig.authorName,
+                authorRoleLabel: orig.authorRoleLabel,
+                category: orig.category,
+                title: orig.title,
+                body: orig.body,
+                image: orig.image,
+                mediaKind: orig.mediaKind,
+                date: dateStr,
+                likes: [],
+                repostsCount: 0,
+                comments: []
+            });
+
+            saveState();
+            refreshEntireUI();
+            showToast("Lentangizga repost qilindi!", "success");
+        }
+
+        function toggleLikePost(postId) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast("Like bosish uchun tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            const post = appState.posts.find(p => p.id === postId);
+            if (!post) return;
+            const idx = post.likes.indexOf(user.id);
+            if (idx === -1) post.likes.push(user.id);
+            else post.likes.splice(idx, 1);
+            saveState();
+            refreshEntireUI();
+        }
+
+        function handleAddComment(e, postId) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) {
+                showToast("Izoh yozish uchun tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            const input = document.getElementById(`commentInput_${postId}`);
+            const text = input.value.trim();
+            if (!text) return;
+            const post = appState.posts.find(p => p.id === postId);
+            if (!post) return;
+
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            post.comments.push({ author: user.fullName, text, time: timeStr });
+            saveState();
+            refreshEntireUI();
+            showToast("Izoh qo'shildi!", "success");
+        }
+
+        function deletePost(postId) {
+            const user = getCurrentUser();
+            const post = appState.posts.find(p => p.id === postId);
+            if (!user || !post) return;
+            if (!isAdmin(user) && post.authorId !== user.id && post.repostedById !== user.id) return;
+
+            appState.posts = appState.posts.filter(p => p.id !== postId);
+            saveState();
+            refreshEntireUI();
+            showToast("Nashr o'chirildi.", "info");
+        }
+
+        function setFeedFilter(filter) {
+            currentFeedFilter = filter;
+            ['all', 'following', 'reposts'].forEach(f => {
+                const btn = document.getElementById(`feedFilter${f.charAt(0).toUpperCase() + f.slice(1)}`);
+                if (btn) {
+                    btn.className = f === filter
+                        ? "px-4 py-1.5 rounded-full text-xs font-bold bg-slate-900 text-white transition"
+                        : "px-4 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition";
+                }
+            });
+            renderPostsFeed();
+        }
+
+        function renderPostsFeed() {
+            const container = document.getElementById('postsFeedList');
+            const user = getCurrentUser();
+            document.getElementById('heroPostCount').innerText = appState.posts.length;
+            document.getElementById('reelsCountBadge').innerText = appState.posts.filter(p => p.mediaType === 'reel').length;
+
+            let list = [...appState.posts];
+            if (currentFeedFilter === 'following') {
+                const myFollowing = user?.following || [];
+                list = list.filter(p => myFollowing.includes(p.authorId) || p.authorId === user?.id);
+            } else if (currentFeedFilter === 'reposts') {
+                list = list.filter(p => p.isRepost);
+            }
+
+            if (list.length === 0) {
+                container.innerHTML = `<div class="bg-white/95 rounded-3xl p-10 text-center border border-slate-200 text-slate-500 text-sm">Bu bo'limda hozircha postlar yo'q.</div>`;
+                renderMiniLeaderboard();
+                return;
+            }
+
+            container.innerHTML = list.map(post => {
+                const isLiked = user && post.likes.includes(user.id);
+                const authorObj = getAllUsers().find(u => u.id === post.authorId) || { fullName: post.authorName, avatar: '' };
+                const canDelete = user && (isAdmin(user) || post.authorId === user.id || post.repostedById === user.id);
+                const followed = isFollowing(post.authorId);
+
+                return `
+                    <article class="bg-white/95 rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                        ${post.isRepost ? `
+                            <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl w-fit">
+                                <i class="fa-solid fa-retweet"></i>
+                                <span>${escapeHTML(post.repostedByName)} repost qildi</span>
+                            </div>
+                        ` : ''}
+
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                ${renderAvatar(authorObj, "w-11 h-11 text-sm")}
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <h4 class="font-extrabold text-slate-900 text-sm">${escapeHTML(post.authorName)}</h4>
+                                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700">${escapeHTML(post.authorRoleLabel)}</span>
+                                        ${user && user.id !== post.authorId ? `
+                                            <button onclick="toggleFollowUser('${post.authorId}')" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full transition ${followed ? 'bg-slate-200 text-slate-700' : 'bg-indigo-600 text-white hover:bg-indigo-700'}">
+                                                ${followed ? '✓ Obuna' : '+ Obuna'}
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                    <p class="text-xs text-slate-400 mt-0.5">${escapeHTML(post.date)}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                ${post.mediaType === 'reel' ? `<span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-700"><i class="fa-solid fa-clapperboard mr-1"></i>Reels</span>` : ''}
+                                <span class="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">${escapeHTML(post.category)}</span>
+                                ${canDelete ? `<button onclick="deletePost('${post.id}')" class="w-8 h-8 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center text-xs"><i class="fa-solid fa-trash"></i></button>` : ''}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-extrabold text-slate-900 mb-1.5">${escapeHTML(post.title)}</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-line">${escapeHTML(post.body)}</p>
+                        </div>
+
+                        ${post.image ? `
+                            <div class="rounded-2xl overflow-hidden border border-slate-100 bg-slate-900">
+                                ${post.mediaKind === 'video'
+                                    ? `<video src="${escapeHTML(post.image)}" controls class="w-full max-h-[440px] mx-auto"></video>`
+                                    : `<img src="${escapeHTML(post.image)}" alt="${escapeHTML(post.title)}" class="w-full max-h-96 object-cover">`
+                                }
+                            </div>
+                        ` : ''}
+
+                        <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-100">
+                            <button onclick="toggleLikePost('${post.id}')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${isLiked ? 'bg-rose-50 text-rose-600 border border-rose-200' : 'bg-slate-50 hover:bg-slate-100 text-slate-600'}">
+                                <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart"></i>
+                                <span>${post.likes.length}</span>
+                            </button>
+                            <button onclick="repostItem('${post.id}')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition">
+                                <i class="fa-solid fa-retweet"></i>
+                                <span>Repost (${post.repostsCount || 0})</span>
+                            </button>
+                            <span class="text-xs font-semibold text-slate-500 ml-auto">
+                                <i class="fa-regular fa-comment mr-1"></i> ${post.comments.length} izoh
+                            </span>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-2xl p-4 space-y-3">
+                            ${post.comments.length > 0 ? `
+                                <div class="space-y-2 max-h-36 overflow-y-auto pr-1">
+                                    ${post.comments.map(c => `
+                                        <div class="bg-white p-2.5 rounded-xl border border-slate-200/70 text-xs">
+                                            <div class="flex justify-between font-bold text-slate-800 mb-0.5">
+                                                <span>${escapeHTML(c.author)}</span>
+                                                <span class="text-[10px] text-slate-400 font-normal">${escapeHTML(c.time)}</span>
+                                            </div>
+                                            <p class="text-slate-600">${escapeHTML(c.text)}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            <form onsubmit="handleAddComment(event, '${post.id}')" class="flex gap-2">
+                                <input type="text" id="commentInput_${post.id}" placeholder="Izoh yozing..." class="flex-1 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-indigo-500">
+                                <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition">Yuborish</button>
+                            </form>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            renderMiniLeaderboard();
+        }
+
+        function renderReelsTab() {
+            const container = document.getElementById('reelsFeedContainer');
+            const user = getCurrentUser();
+            const reels = appState.posts.filter(p => p.mediaType === 'reel');
+
+            if (reels.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white/95 rounded-3xl p-12 text-center border border-slate-200 space-y-3">
+                        <div class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center mx-auto text-2xl"><i class="fa-solid fa-clapperboard"></i></div>
+                        <h3 class="font-extrabold text-slate-900">Hali Reels videolar yo'q</h3>
+                        <p class="text-xs text-slate-500">Birinchi bo'lib maktab hayoti yoki animatsiyangizni Reels sifatida joylang!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = reels.map(reel => {
+                const isLiked = user && reel.likes.includes(user.id);
+                const authorObj = getAllUsers().find(u => u.id === reel.authorId) || { fullName: reel.authorName, avatar: '' };
+                const followed = isFollowing(reel.authorId);
+
+                return `
+                    <div class="bg-slate-900 text-white rounded-3xl overflow-hidden shadow-xl border border-slate-800">
+                        <div class="p-4 flex items-center justify-between bg-slate-950/60">
+                            <div class="flex items-center gap-2.5">
+                                ${renderAvatar(authorObj, "w-9 h-9 text-xs")}
+                                <div>
+                                    <div class="text-xs font-extrabold">${escapeHTML(reel.authorName)}</div>
+                                    <div class="text-[10px] text-slate-400">${escapeHTML(reel.date)}</div>
+                                </div>
+                            </div>
+                            ${user && user.id !== reel.authorId ? `
+                                <button onclick="toggleFollowUser('${reel.authorId}')" class="px-3 py-1 rounded-full text-xs font-bold ${followed ? 'bg-white/15 text-white' : 'bg-rose-600 text-white'}">
+                                    ${followed ? 'Obuna bo\'lingan' : '+ Obuna'}
+                                </button>
+                            ` : ''}
+                        </div>
+
+                        <div class="bg-black flex items-center justify-center min-h-[380px] max-h-[540px]">
+                            ${reel.image
+                                ? (reel.mediaKind === 'video'
+                                    ? `<video src="${escapeHTML(reel.image)}" controls loop class="w-full max-h-[540px] object-contain"></video>`
+                                    : `<img src="${escapeHTML(reel.image)}" class="w-full max-h-[540px] object-contain">`)
+                                : `<div class="p-10 text-center font-extrabold text-xl">${escapeHTML(reel.title)}</div>`
+                            }
+                        </div>
+
+                        <div class="p-5 space-y-3">
+                            <div>
+                                <h4 class="font-extrabold text-base">${escapeHTML(reel.title)}</h4>
+                                <p class="text-xs text-slate-300 mt-1">${escapeHTML(reel.body)}</p>
+                            </div>
+                            <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+                                <button onclick="toggleLikePost('${reel.id}')" class="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 ${isLiked ? 'bg-rose-600 text-white' : 'bg-white/10 text-white hover:bg-white/20'}">
+                                    <i class="fa-solid fa-heart"></i> ${reel.likes.length}
+                                </button>
+                                <button onclick="repostItem('${reel.id}')" class="px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-emerald-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-retweet"></i> Repost (${reel.repostsCount || 0})
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // CLASS CHAT
+        function getPrivateRoomKey(id1, id2) { return 'dm_' + [id1, id2].sort().join('_'); }
+
+        function selectChatRoom(roomKey, targetUserName = '') {
+            const user = getCurrentUser();
+            if (roomKey !== 'general' && !user) {
+                showToast("Shaxsiy xabar yozish uchun tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            activeChatRoom = roomKey;
+            const headerBar = document.getElementById('chatHeaderBar');
+            headerBar.innerHTML = roomKey === 'general'
+                ? `<div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl hero-bg text-white flex items-center justify-center font-extrabold text-sm">7-B</div><div><h4 class="font-extrabold text-slate-900 text-sm">7-B Umumiy Sinf Chati</h4><p class="text-[11px] text-emerald-600 font-semibold">● Barcha o'quvchilar va ustozlar uchun umumiy xona</p></div></div>`
+                : `<div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold text-sm"><i class="fa-solid fa-user"></i></div><div><h4 class="font-extrabold text-slate-900 text-sm">${escapeHTML(targetUserName)}</h4><p class="text-[11px] text-indigo-600 font-semibold">Shaxsiy maktab yozishmasi</p></div></div>`;
+            renderChatTab();
+        }
+
+        function startDirectChat(targetId, targetName) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast("Xabar yozish uchun avval tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            switchMainTab('chat');
+            selectChatRoom(getPrivateRoomKey(user.id, targetId), targetName);
+        }
+
+        function renderChatTab() {
+            const user = getCurrentUser();
+            const usersListEl = document.getElementById('chatUsersList');
+            const others = getAllUsers().filter(u => !user || u.id !== user.id);
+
+            usersListEl.innerHTML = others.map(u => {
+                const roomKey = user ? getPrivateRoomKey(user.id, u.id) : '';
+                const isActive = activeChatRoom === roomKey;
+                const safeName = u.fullName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                return `
+                    <button onclick="startDirectChat('${u.id}', '${safeName}')" class="w-full text-left p-2 rounded-xl flex items-center gap-2.5 text-xs transition ${isActive ? 'bg-indigo-100 text-indigo-900 font-bold' : 'hover:bg-white text-slate-700'}">
+                        ${renderAvatar(u, "w-7 h-7 text-[10px]")}
+                        <span class="truncate">${escapeHTML(u.fullName)}</span>
+                    </button>
+                `;
+            }).join('');
+
+            const msgs = appState.chats[activeChatRoom] || [];
+            const box = document.getElementById('chatMessagesContainer');
+            if (msgs.length === 0) {
+                box.innerHTML = `<div class="text-center text-xs text-slate-400 py-16">Bu suhbatda hali xabarlar yo'q. Salomlashing! 👋</div>`;
+                return;
+            }
+
+            box.innerHTML = msgs.map(m => {
+                const isMine = user && m.senderId === user.id;
+                return `
+                    <div class="flex flex-col ${isMine ? 'items-end' : 'items-start'}">
+                        <div class="max-w-[80%] rounded-2xl px-4 py-2.5 text-xs shadow-sm ${isMine ? 'bg-indigo-600 text-white rounded-br-none' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none'}">
+                            ${!isMine ? `<div class="font-extrabold text-[11px] text-indigo-600 mb-0.5">${escapeHTML(m.senderName)}</div>` : ''}
+                            <div class="leading-relaxed">${escapeHTML(m.text)}</div>
+                            <div class="text-[9px] mt-1 text-right ${isMine ? 'text-indigo-200' : 'text-slate-400'}">${escapeHTML(m.time)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function handleSendChatMessage(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) {
+                showToast("Chatda yozish uchun avval tizimga kiring!", "info");
+                return openLoginModal();
+            }
+            const input = document.getElementById('chatMessageInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            if (!appState.chats[activeChatRoom]) appState.chats[activeChatRoom] = [];
+            const now = new Date();
+            const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            appState.chats[activeChatRoom].push({ id: 'm_' + Date.now(), senderId: user.id, senderName: user.fullName, text, time });
+            saveState();
+            input.value = '';
+            renderChatTab();
+        }
+
+        // ==================== MAKTAB GAMES LOGIC ====================
+        function renderGamesTab() {
+            const user = getCurrentUser();
+            const badge = document.getElementById('gameUserPointsBadge');
+            if (user) {
+                badge.innerHTML = `👤 ${escapeHTML(user.fullName)} • Joriy reyting: <strong>${user.rating || 0} ⭐</strong>`;
+            } else {
+                badge.innerHTML = `⚠️ Ballar reytingga yozilishi uchun <button onclick="openLoginModal()" class="underline font-extrabold">Kirish</button> qiling`;
+            }
+            if (document.getElementById('memoryGrid').children.length === 0) initMemoryGame();
+            if (document.getElementById('tttBoardGrid').children.length === 0) initTttGame();
+        }
+
+        // GAME 1: MATH SPRINT
+        let mathInterval = null;
+        let mathTimeLeft = 30;
+        let mathScore = 0;
+        let mathCurrentAns = 0;
+
+        function nextMathQuestion() {
+            const a = Math.floor(Math.random() * 18) + 3;
+            const b = Math.floor(Math.random() * 15) + 2;
+            const ops = ['+', '-', '*'];
+            const op = ops[Math.floor(Math.random() * ops.length)];
+            if (op === '+') { mathCurrentAns = a + b; document.getElementById('mathQuestionText').innerText = `${a} + ${b} = ?`; }
+            else if (op === '-') { const big = Math.max(a, b), small = Math.min(a, b); mathCurrentAns = big - small; document.getElementById('mathQuestionText').innerText = `${big} - ${small} = ?`; }
+            else { const x = Math.floor(Math.random() * 10) + 2, y = Math.floor(Math.random() * 10) + 2; mathCurrentAns = x * y; document.getElementById('mathQuestionText').innerText = `${x} × ${y} = ?`; }
+        }
+
+        function startMathGame() {
+            clearInterval(mathInterval);
+            mathTimeLeft = 30;
+            mathScore = 0;
+            document.getElementById('mathTimerText').innerText = '30s';
+            document.getElementById('mathScoreText').innerText = '0';
+            document.getElementById('mathControlsArea').innerHTML = `
+                <form onsubmit="submitMathAnswer(event)" class="flex gap-2">
+                    <input type="number" id="mathAnsInput" required autofocus placeholder="Javob..." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-center font-extrabold text-sm">
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs">OK</button>
+                </form>
+            `;
+            nextMathQuestion();
+            document.getElementById('mathAnsInput')?.focus();
+
+            mathInterval = setInterval(() => {
+                mathTimeLeft--;
+                document.getElementById('mathTimerText').innerText = `${mathTimeLeft}s`;
+                if (mathTimeLeft <= 0) {
+                    clearInterval(mathInterval);
+                    const earned = Math.floor(mathScore / 3);
+                    document.getElementById('mathQuestionText').innerText = `Vaqt tugadi! Natija: ${mathScore}`;
+                    document.getElementById('mathControlsArea').innerHTML = `
+                        <button onclick="startMathGame()" class="w-full py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs">Yana o'ynash</button>
+                    `;
+                    if (earned > 0) awardGamePoints(earned, `Matematika Sprint (${mathScore} ta misol)`);
+                }
+            }, 1000);
+        }
+
+        function submitMathAnswer(e) {
+            e.preventDefault();
+            const inp = document.getElementById('mathAnsInput');
+            if (!inp) return;
+            const val = parseInt(inp.value, 10);
+            if (val === mathCurrentAns) {
+                mathScore++;
+                document.getElementById('mathScoreText').innerText = mathScore;
+            }
+            inp.value = '';
+            nextMathQuestion();
+            inp.focus();
+        }
+
+        // GAME 2: MEMORY CARDS
+        let memoryCards = [];
+        let flippedIndices = [];
+        let matchedIndices = [];
+        let memoryMoves = 0;
+
+        function initMemoryGame() {
+            const icons = ['📐', '🔬', '🎨', '💻', '🌍', '📚'];
+            memoryCards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+            flippedIndices = [];
+            matchedIndices = [];
+            memoryMoves = 0;
+            document.getElementById('memoryMovesText').innerText = '0';
+            renderMemoryGrid();
+        }
+
+        function renderMemoryGrid() {
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = memoryCards.map((icon, idx) => {
+                const isOpen = flippedIndices.includes(idx) || matchedIndices.includes(idx);
+                return `
+                    <button onclick="flipMemoryCard(${idx})" class="h-12 rounded-xl font-bold text-lg flex items-center justify-center transition ${isOpen ? 'bg-indigo-100 border-2 border-indigo-400' : 'bg-slate-800 text-white hover:bg-slate-700'}">
+                        ${isOpen ? icon : '?'}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function flipMemoryCard(idx) {
+            if (flippedIndices.length >= 2 || flippedIndices.includes(idx) || matchedIndices.includes(idx)) return;
+            flippedIndices.push(idx);
+            renderMemoryGrid();
+
+            if (flippedIndices.length === 2) {
+                memoryMoves++;
+                document.getElementById('memoryMovesText').innerText = memoryMoves;
+                const [i1, i2] = flippedIndices;
+                if (memoryCards[i1] === memoryCards[i2]) {
+                    matchedIndices.push(i1, i2);
+                    flippedIndices = [];
+                    renderMemoryGrid();
+                    if (matchedIndices.length === memoryCards.length) {
+                        awardGamePoints(3, "Xotira O'yini g'alabasi");
+                    }
+                } else {
+                    setTimeout(() => {
+                        flippedIndices = [];
+                        renderMemoryGrid();
+                    }, 650);
+                }
+            }
+        }
+
+        // GAME 3: TIC-TAC-TOE
+        let tttBoard = Array(9).fill('');
+        let tttGameOver = false;
+
+        function initTttGame() {
+            tttBoard = Array(9).fill('');
+            tttGameOver = false;
+            document.getElementById('tttStatusText').innerText = "Sizning navbatingiz (X)";
+            renderTttBoard();
+        }
+
+        function checkTttWinner(b) {
+            const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            for (const [a, c, d] of lines) {
+                if (b[a] && b[a] === b[c] && b[a] === b[d]) return b[a];
+            }
+            return b.includes('') ? null : 'DRAW';
+        }
+
+        function renderTttBoard() {
+            const grid = document.getElementById('tttBoardGrid');
+            grid.innerHTML = tttBoard.map((cell, idx) => `
+                <button onclick="playTttMove(${idx})" class="h-16 rounded-2xl bg-slate-100 hover:bg-indigo-50 border border-slate-200 text-2xl font-extrabold flex items-center justify-center ${cell === 'X' ? 'text-indigo-600' : 'text-rose-500'}">
+                    ${cell}
+                </button>
+            `).join('');
+        }
+
+        function playTttMove(idx) {
+            if (tttGameOver || tttBoard[idx] !== '') return;
+            tttBoard[idx] = 'X';
+            renderTttBoard();
+            let res = checkTttWinner(tttBoard);
+            if (res) return finishTtt(res);
+
+            const empty = tttBoard.map((v, i) => v === '' ? i : null).filter(v => v !== null);
+            let botChoice = null;
+
+            for (const mark of ['O', 'X']) {
+                for (const i of empty) {
+                    const copy = [...tttBoard];
+                    copy[i] = mark;
+                    if (checkTttWinner(copy) === mark) {
+                        botChoice = i;
+                        break;
+                    }
+                }
+                if (botChoice !== null) break;
+            }
+            if (botChoice === null) {
+                botChoice = empty[Math.floor(Math.random() * empty.length)];
+            }
+
+            tttBoard[botChoice] = 'O';
+            renderTttBoard();
+            res = checkTttWinner(tttBoard);
+            if (res) return finishTtt(res);
+        }
+
+        function finishTtt(res) {
+            tttGameOver = true;
+            const status = document.getElementById('tttStatusText');
+            if (res === 'X') {
+                status.innerText = "🎉 Siz yutdingiz! (+5 ball)";
+                awardGamePoints(5, "Krestik-Nolik o'yinida g'alaba");
+            } else if (res === 'O') {
+                status.innerText = "Raqib yutdi! Qayta urinib ko'ring";
+            } else {
+                status.innerText = "🤝 Durang natija!";
+            }
+        }
+
+        // LEADERBOARD & STUDENTS
+        function renderMiniLeaderboard() {
+            const container = document.getElementById('miniLeaderboard');
+            const sorted = [...appState.students].sort((a, b) => b.rating - a.rating || a.num - b.num).slice(0, 5);
+            const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            container.innerHTML = sorted.map((st, idx) => `
+                <div onclick="openStudentDetailModal('${st.id}')" class="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 hover:bg-indigo-50/70 cursor-pointer transition border border-slate-100">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <span class="text-base shrink-0">${medals[idx]}</span>
+                        ${renderAvatar(st, "w-8 h-8 text-xs")}
+                        <div class="truncate">
+                            <div class="text-xs font-bold text-slate-900 truncate">${escapeHTML(st.fullName)}</div>
+                            <div class="text-[10px] text-slate-500 truncate">${(st.followers || []).length} obunachi</div>
+                        </div>
+                    </div>
+                    <span class="ml-2 px-2.5 py-1 rounded-xl bg-amber-100 text-amber-800 font-extrabold text-xs shrink-0">${st.rating} ⭐</span>
+                </div>
+            `).join('');
+        }
+
+        function renderStudentsTab() {
+            const user = getCurrentUser();
+            const canGrade = canGradeOrAssign(user);
+            document.getElementById('teacherGradeQuickBtnArea').innerHTML = canGrade
+                ? `<button onclick="openGradeModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow-md transition flex items-center gap-2"><i class="fa-solid fa-star"></i><span>Baho qo'yish</span></button>`
+                : '';
+
+            const byRating = [...appState.students].sort((a, b) => b.rating - a.rating || a.num - b.num);
+            const rankMap = {};
+            byRating.forEach((s, i) => rankMap[s.id] = i + 1);
+
+            const podiumColors = [
+                { badge: "🥇 1-O'RIN", border: 'border-amber-300 bg-amber-50/60', scoreBg: 'bg-amber-500 text-white' },
+                { badge: "🥈 2-O'RIN", border: 'border-slate-300 bg-slate-50', scoreBg: 'bg-slate-600 text-white' },
+                { badge: "🥉 3-O'RIN", border: 'border-orange-300 bg-orange-50/50', scoreBg: 'bg-orange-500 text-white' }
+            ];
+
+            document.getElementById('podiumGrid').innerHTML = byRating.slice(0, 3).map((st, idx) => `
+                <div onclick="openStudentDetailModal('${st.id}')" class="rounded-3xl p-5 border-2 ${podiumColors[idx].border} cursor-pointer hover:shadow-lg transition flex items-center gap-4">
+                    ${renderAvatar(st, "w-16 h-16 text-lg")}
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="text-[11px] font-extrabold text-slate-700">${podiumColors[idx].badge}</span>
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold ${podiumColors[idx].scoreBg}">${st.rating} ball</span>
+                        </div>
+                        <h4 class="font-extrabold text-slate-900 text-sm line-clamp-2">${escapeHTML(st.fullName)}</h4>
+                        <p class="text-[11px] text-slate-500 mt-1">👥 ${(st.followers || []).length} obunachi</p>
+                    </div>
+                </div>
+            `).join('');
+
+            const search = (document.getElementById('studentSearchInput')?.value || '').toLowerCase();
+            const sortBy = document.getElementById('studentSortSelect')?.value || 'number';
+
+            let list = appState.students.filter(s => s.fullName.toLowerCase().includes(search));
+            if (sortBy === 'rating') list.sort((a, b) => b.rating - a.rating || a.num - b.num);
+            else if (sortBy === 'followers') list.sort((a, b) => (b.followers?.length || 0) - (a.followers?.length || 0));
+            else if (sortBy === 'name') list.sort((a, b) => a.fullName.localeCompare(b.fullName));
+            else list.sort((a, b) => a.num - b.num);
+
+            document.getElementById('allStudentsGrid').innerHTML = list.map(st => {
+                const rank = rankMap[st.id];
+                const followed = isFollowing(st.id);
+                const isMe = user && user.id === st.id;
+                const safeName = st.fullName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+                return `
+                    <div class="bg-slate-50/80 hover:bg-white rounded-3xl p-5 border border-slate-200 hover:border-indigo-300 hover:shadow-lg transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-white border border-slate-200 text-slate-600">#${st.num} • ${rank}-o'rin</span>
+                                <span class="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-indigo-600 text-white">${st.rating} ⭐</span>
+                            </div>
+                            <div onclick="openStudentDetailModal('${st.id}')" class="flex items-center gap-3 mb-3 cursor-pointer">
+                                ${renderAvatar(st, "w-14 h-14 text-base")}
+                                <div class="min-w-0">
+                                    <h4 class="font-extrabold text-slate-900 text-sm leading-snug line-clamp-2">${escapeHTML(st.fullName)}</h4>
+                                    <div class="text-[11px] text-slate-500 mt-1">
+                                        <strong>${(st.followers || []).length}</strong> obunachi • <strong>${(st.following || []).length}</strong> obuna
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-600 bg-white p-3 rounded-2xl border border-slate-100 line-clamp-2 min-h-[46px]">
+                                ${escapeHTML(st.bio) || "7-B sinfi o'quvchisi."}
+                            </p>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-200/70 flex items-center justify-between gap-2">
+                            ${!isMe ? `
+                                <button onclick="toggleFollowUser('${st.id}')" class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition ${followed ? 'bg-slate-200 text-slate-700' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}">
+                                    ${followed ? '✓ Obuna' : '+ Obuna bo\'lish'}
+                                </button>
+                                <button onclick="startDirectChat('${st.id}', '${safeName}')" title="Xabar yozish" class="p-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-600 text-xs">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            ` : `<span class="text-xs font-bold text-indigo-600">Sizning profilingiz</span>`}
+                            ${canGrade ? `<button onclick="openGradeModal('${st.id}')" class="px-2.5 py-1.5 rounded-xl bg-amber-100 text-amber-800 font-bold text-xs">+Baho</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openStudentDetailModal(studentId) {
+            const st = appState.students.find(s => s.id === studentId);
+            if (!st) return;
+            const user = getCurrentUser();
+            const followed = isFollowing(st.id);
+            const safeName = st.fullName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+            const gradesList = st.grades && st.grades.length > 0
+                ? st.grades.slice().reverse().map(g => `
+                    <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
+                        <div>
+                            <div class="font-bold text-slate-900">${escapeHTML(g.subject)} <span class="text-slate-400 font-normal">• ${escapeHTML(g.teacher)}</span></div>
+                            ${g.comment ? `<div class="text-slate-600 mt-0.5">"${escapeHTML(g.comment)}"</div>` : ''}
+                        </div>
+                        <span class="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 font-extrabold text-sm">+${g.score}</span>
+                    </div>
+                `).join('')
+                : `<p class="text-xs text-slate-400 text-center py-4">Hozircha baholar qo'yilmagan.</p>`;
+
+            document.getElementById('studentDetailContent').innerHTML = `
+                <div class="text-center">
+                    <div class="inline-block mb-3">${renderAvatar(st, "w-24 h-24 text-2xl mx-auto")}</div>
+                    <h3 class="text-xl font-extrabold text-slate-900">${escapeHTML(st.fullName)}</h3>
+                    <div class="flex items-center justify-center gap-3 mt-2 text-xs text-slate-600">
+                        <span><strong>${(st.followers || []).length}</strong> Obunachi</span>
+                        <span>•</span>
+                        <span><strong>${(st.following || []).length}</strong> Obuna</span>
+                        <span>•</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-extrabold">${st.rating} ball</span>
+                    </div>
+                    ${user && user.id !== st.id ? `
+                        <div class="flex justify-center gap-2 mt-4">
+                            <button onclick="toggleFollowUser('${st.id}'); openStudentDetailModal('${st.id}')" class="px-5 py-2 rounded-xl text-xs font-bold ${followed ? 'bg-slate-200 text-slate-800' : 'bg-indigo-600 text-white'}">
+                                ${followed ? '✓ Obuna bo\'lingan' : '+ Obuna bo\'lish'}
+                            </button>
+                            <button onclick="closeStudentDetailModal(); startDirectChat('${st.id}', '${safeName}')" class="px-4 py-2 rounded-xl bg-sky-100 text-sky-700 text-xs font-bold">
+                                <i class="fa-solid fa-comment mr-1"></i> Xabar yozish
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="mt-5 bg-indigo-50/60 border border-indigo-100 rounded-2xl p-4">
+                    <div class="text-xs font-bold text-indigo-900 mb-1">O'zi haqida:</div>
+                    <p class="text-xs text-slate-700">${escapeHTML(st.bio) || "Ma'lumot kiritilmagan."}</p>
+                </div>
+                <div class="mt-4">
+                    <h4 class="text-xs font-extrabold uppercase text-slate-500 mb-2">Baholar va O'yin ballari tarixi</h4>
+                    <div class="space-y-2 max-h-44 overflow-y-auto">${gradesList}</div>
+                </div>
+            `;
+            document.getElementById('studentDetailModal').classList.remove('hidden');
+        }
+
+        function closeStudentDetailModal() { document.getElementById('studentDetailModal').classList.add('hidden'); }
+
+        // GRADING
+        function openGradeModal(preselectedStudentId = '') {
+            const user = getCurrentUser();
+            if (!canGradeOrAssign(user)) return showToast("Faqat ustozlar baho qo'ya oladi!", "error");
+            document.getElementById('gradeStudentSelect').innerHTML = appState.students.map(s => `<option value="${s.id}" ${s.id === preselectedStudentId ? 'selected' : ''}>${s.num}. ${escapeHTML(s.fullName)}</option>`).join('');
+            const subjects = ["Matematika", "Fizika", "O'zbek-tili", "Shet-tili", "ART / Kelajak soati", "Informatika", "Tariyx", "Geografiya", "Biologiya", "Ximiya", "Qaraqalpaq-tili", "Rus-tili", "Texnologiya", "Dene tarbiya", "Tarbiya"];
+            document.getElementById('gradeSubjectSelect').innerHTML = subjects.map(sub => `<option value="${sub}">${sub}</option>`).join('');
+            document.getElementById('gradeModal').classList.remove('hidden');
+        }
+
+        function closeGradeModal() { document.getElementById('gradeModal').classList.add('hidden'); }
+
+        function handleGradeSubmit(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            const student = appState.students.find(s => s.id === document.getElementById('gradeStudentSelect').value);
+            const subject = document.getElementById('gradeSubjectSelect').value;
+            const score = parseInt(document.getElementById('gradePointsSelect').value, 10);
+            const comment = document.getElementById('gradeCommentInput').value.trim();
+            if (!student) return;
+
+            student.rating += score;
+            if (!student.grades) student.grades = [];
+            student.grades.push({ subject, score, teacher: user.fullName, comment, date: new Date().toLocaleDateString() });
+            saveState();
+            closeGradeModal();
+            refreshEntireUI();
+            showToast(`${student.fullName}ga +${score} ball qo'yildi!`, "success");
+        }
+
+        // HOMEWORK
+        function renderHomeworkTab() {
+            const user = getCurrentUser();
+            const addCard = document.getElementById('addHomeworkCard');
+            const subjects = ["Matematika", "Fizika", "O'zbek-tili", "Shet-tili", "ART / Kelajak soati", "Informatika", "Tariyx", "Geografiya", "Biologiya", "Ximiya", "Qaraqalpaq-tili", "Rus-tili", "Texnologiya", "Dene tarbiya", "Tarbiya"];
+
+            if (canGradeOrAssign(user)) {
+                addCard.classList.remove('hidden');
+                const hwSubjInput = document.getElementById('hwSubjectInput');
+                if (hwSubjInput.options.length === 0) hwSubjInput.innerHTML = subjects.map(s => `<option value="${s}">${s}</option>`).join('');
+            } else {
+                addCard.classList.add('hidden');
+            }
+
+            const filterSel = document.getElementById('hwFilterSubject');
+            if (filterSel.options.length <= 1) {
+                subjects.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; filterSel.appendChild(o); });
+            }
+
+            document.getElementById('hwCountBadge').innerText = appState.homework.length;
+            const currentFilter = filterSel.value;
+            const filtered = currentFilter === 'ALL' ? appState.homework : appState.homework.filter(h => h.subject === currentFilter);
+            const container = document.getElementById('homeworkListContainer');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-10 text-xs text-slate-400">Hozircha uyga vazifalar berilmagan.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(hw => {
+                const isDone = user && hw.completedBy && hw.completedBy.includes(user.id);
+                return `
+                    <div class="p-5 rounded-3xl border ${isDone ? 'bg-emerald-50/40 border-emerald-200' : 'bg-slate-50 border-slate-200'} flex flex-col justify-between gap-4">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="px-3 py-1 rounded-xl bg-indigo-100 text-indigo-700 font-extrabold text-xs">${escapeHTML(hw.subject)}</span>
+                                <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-lg">Muddat: ${escapeHTML(hw.deadline)}</span>
+                            </div>
+                            <p class="text-sm font-bold text-slate-900 mt-2">${escapeHTML(hw.task)}</p>
+                            <p class="text-xs text-slate-500 mt-2">Ustoz: <strong>${escapeHTML(hw.teacher)}</strong></p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-slate-200/70">
+                            <span class="text-[11px] text-slate-500">${(hw.completedBy || []).length} o'quvchi bajardi</span>
+                            ${user ? `<button onclick="toggleHomeworkDone('${hw.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold ${isDone ? 'bg-emerald-600 text-white' : 'bg-white border border-slate-300 text-slate-700'}">${isDone ? 'Bajarildi' : 'Bajardim'}</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function handleAddHomework(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!canGradeOrAssign(user)) return;
+            appState.homework.unshift({
+                id: 'hw_' + Date.now(),
+                subject: document.getElementById('hwSubjectInput').value,
+                teacher: user.fullName,
+                task: document.getElementById('hwTaskInput').value.trim(),
+                deadline: document.getElementById('hwDeadlineInput').value,
+                completedBy: []
+            });
+            saveState();
+            document.getElementById('hwTaskInput').value = '';
+            renderHomeworkTab();
+            showToast("Vazifa qo'shildi!", "success");
+        }
+
+        function toggleHomeworkDone(hwId) {
+            const user = getCurrentUser();
+            const hw = appState.homework.find(h => h.id === hwId);
+            if (!user || !hw) return;
+            if (!hw.completedBy) hw.completedBy = [];
+            const idx = hw.completedBy.indexOf(user.id);
+            if (idx === -1) hw.completedBy.push(user.id);
+            else hw.completedBy.splice(idx, 1);
+            saveState();
+            renderHomeworkTab();
+        }
+
+        // TIMETABLE
+        function renderScheduleTab() {
+            const dayIdx = new Date().getDay();
+            const dayNames = ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba"];
+            document.getElementById('todayDayLabel').innerText = `Bugun: ${dayNames[dayIdx]}`;
+            document.getElementById('fullTimetableBody').innerHTML = TIMETABLE_ROWS.map(row => `
+                <tr>
+                    <td class="py-3 px-3 text-center font-extrabold text-slate-700 bg-slate-50">${row.num}</td>
+                    <td class="py-3 px-3 font-bold text-slate-600 bg-slate-50 whitespace-nowrap">${row.time}</td>
+                    ${row.days.map((slot, idx) => {
+                        const isTodayCol = (idx + 1) === dayIdx;
+                        if (!slot) return `<td class="p-2 ${isTodayCol ? 'bg-indigo-50/40' : 'bg-slate-50/40'} text-center text-slate-400 italic">${row.num === 6 ? 'Tanaffus' : '—'}</td>`;
+                        return `<td class="p-2 ${isTodayCol ? 'bg-indigo-50/50' : ''}"><div class="p-2.5 rounded-xl border ${slot.bg} text-center"><div class="font-extrabold text-xs">${slot.subject}</div><div class="text-[11px] opacity-85">${slot.teachers}</div></div></td>`;
+                    }).join('')}
+                </tr>
+            `).join('');
+        }
+
+        // SCHOOL & TEACHERS
+        function renderSchoolTab() {
+            document.getElementById('schoolTitleDisplay').innerText = appState.schoolInfo.title;
+            document.getElementById('schoolDescDisplay').innerText = appState.schoolInfo.description;
+            const user = getCurrentUser();
+            document.getElementById('teachersDirectoryGrid').innerHTML = appState.teachers.map(t => {
+                const followed = isFollowing(t.id);
+                return `
+                    <div class="p-5 rounded-3xl border ${t.role === 'homeroom_teacher' ? 'border-violet-300 bg-violet-50/50' : 'border-slate-200 bg-slate-50/70'} flex flex-col justify-between gap-3">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                ${renderAvatar(t, "w-12 h-12 text-sm")}
+                                <div>
+                                    <h4 class="font-extrabold text-slate-900 text-sm">${escapeHTML(t.fullName)}</h4>
+                                    <div class="mt-1">${getRoleBadgeHTML(t.role)}</div>
+                                </div>
+                            </div>
+                            <div class="inline-block px-3 py-1 rounded-xl bg-white border border-slate-200 text-xs font-bold text-indigo-700 mb-2">📚 ${escapeHTML(t.subject)}</div>
+                            <p class="text-xs text-slate-600">${escapeHTML(t.bio) || ''}</p>
+                        </div>
+                        ${user && user.id !== t.id ? `
+                            <button onclick="toggleFollowUser('${t.id}')" class="w-full py-1.5 rounded-xl text-xs font-bold ${followed ? 'bg-slate-200 text-slate-700' : 'bg-indigo-600 text-white'}">
+                                ${followed ? '✓ Obuna (' + (t.followers?.length || 0) + ')' : '+ Obuna bo\'lish (' + (t.followers?.length || 0) + ')'}
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // PROFILE TAB
+        function renderProfileTab() {
+            const user = getCurrentUser();
+            const container = document.getElementById('personalProfileContainer');
+            if (!user) return;
+            container.innerHTML = `
+                <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-slate-100">
+                    <div>
+                        ${renderAvatar(user, "w-24 h-24 text-2xl")}
+                        <label class="mt-2 cursor-pointer inline-flex items-center justify-center gap-1.5 w-full px-3 py-1.5 rounded-xl bg-indigo-50 text-indigo-700 text-xs font-bold">
+                            <i class="fa-solid fa-camera"></i><span>Rasm</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="handleProfileAvatarUpload(event)">
+                        </label>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <div class="mb-1.5">${getRoleBadgeHTML(user.role)}</div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">${escapeHTML(user.fullName)}</h2>
+                        <div class="flex items-center justify-center sm:justify-start gap-4 mt-2 text-xs text-slate-600">
+                            <span><strong>${(user.followers || []).length}</strong> Obunachi</span>
+                            <span><strong>${(user.following || []).length}</strong> Obuna</span>
+                            <span>Reyting: <strong>${user.rating || 0} ⭐</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <form onsubmit="handleSavePersonalProfile(event)" class="space-y-4 pt-6">
+                    <div>
+                        <label class="block text-xs font-extrabold uppercase text-slate-600 mb-1">O'zim haqimda (Bio)</label>
+                        <textarea id="profileBioInput" rows="3" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm">${escapeHTML(user.bio) || ''}</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-extrabold uppercase text-slate-600 mb-1">Parol</label>
+                        <input type="text" id="profileNewPassInput" value="${escapeHTML(user.password)}" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono">
+                    </div>
+                    <button type="submit" class="bg-indigo-600 text-white font-bold px-7 py-3 rounded-2xl text-sm shadow-md">Saqlash</button>
+                </form>
+            `;
+        }
+
+        function handleProfileAvatarUpload(e) {
+            const file = e.target.files[0];
+            const user = getCurrentUser();
+            if (!file || !user) return;
+            const reader = new FileReader();
+            reader.onload = evt => {
+                const rec = findUserRecord(user.id);
+                if (rec) { rec.avatar = evt.target.result; saveState(); refreshEntireUI(); renderProfileTab(); showToast("Rasm yangilandi!", "success"); }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleSavePersonalProfile(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            const rec = findUserRecord(user.id);
+            if (!rec) return;
+            rec.bio = document.getElementById('profileBioInput').value.trim();
+            rec.password = document.getElementById('profileNewPassInput').value.trim();
+            saveState();
+            refreshEntireUI();
+            showToast("Saqlandi!", "success");
+        }
+
+        // ADMIN TAB
+        function renderAdminTab() {
+            const user = getCurrentUser();
+            if (!isAdmin(user)) return switchMainTab('feed');
+            renderAdminUsersTable();
+        }
+
+        function renderAdminUsersTable() {
+            const search = (document.getElementById('adminUserSearch')?.value || '').toLowerCase();
+            const filter = document.getElementById('adminRoleFilter')?.value || 'ALL';
+            let users = getAllUsers().filter(u => u.fullName.toLowerCase().includes(search) || u.login.toLowerCase().includes(search));
+            if (filter === 'student') users = users.filter(u => u.userType === 'student');
+            else if (filter === 'teacher') users = users.filter(u => u.userType === 'teacher');
+            else if (filter === 'admins') users = users.filter(u => isAdmin(u));
+
+            document.getElementById('adminUsersTableBody').innerHTML = users.map(u => `
+                <tr class="hover:bg-slate-50">
+                    <td class="py-3 px-4 font-bold text-slate-900">${escapeHTML(u.fullName)}</td>
+                    <td class="py-3 px-4">${u.userType === 'teacher' ? 'Ustoz' : "O'quvchi"}</td>
+                    <td class="py-3 px-4"><input type="text" id="adm_login_${u.id}" value="${escapeHTML(u.login)}" class="w-28 px-2.5 py-1.5 border rounded-lg font-mono text-xs"></td>
+                    <td class="py-3 px-4"><input type="text" id="adm_pass_${u.id}" value="${escapeHTML(u.password)}" class="w-28 px-2.5 py-1.5 border rounded-lg font-mono text-xs"></td>
+                    <td class="py-3 px-4">
+                        <select id="adm_role_${u.id}" ${u.id === 's_13' ? 'disabled' : ''} class="px-2.5 py-1.5 border rounded-lg text-xs font-semibold">
+                            <option value="student" ${u.role === 'student' ? 'selected' : ''}>O'quvchi</option>
+                            <option value="teacher" ${u.role === 'teacher' ? 'selected' : ''}>Ustoz</option>
+                            <option value="homeroom_teacher" ${u.role === 'homeroom_teacher' ? 'selected' : ''}>Sinf Rahbari</option>
+                            <option value="assistant_admin" ${u.role === 'assistant_admin' ? 'selected' : ''}>Yordamchi Admin</option>
+                            <option value="super_admin" ${u.role === 'super_admin' ? 'selected' : ''}>Bosh Admin</option>
+                        </select>
+                    </td>
+                    <td class="py-3 px-4 text-right"><button onclick="saveAdminUserRow('${u.id}', '${u.userType}')" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white font-bold text-xs">Saqlash</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function saveAdminUserRow(userId, userType) {
+            const target = findUserRecord(userId);
+            if (!target) return;
+            target.login = document.getElementById(`adm_login_${userId}`).value.trim().toLowerCase();
+            target.password = document.getElementById(`adm_pass_${userId}`).value.trim();
+            if (userId !== 's_13') target.role = document.getElementById(`adm_role_${userId}`).value;
+            saveState();
+            refreshEntireUI();
+            showToast(`${target.fullName} saqlandi!`, "success");
+        }
+
+        // INIT
+        function refreshEntireUI() {
+            renderHeaderAuth();
+            renderStoriesBar();
+            renderPostsFeed();
+            renderStudentsTab();
+            renderHomeworkTab();
+            renderScheduleTab();
+            renderSchoolTab();
+        }
+
+        window.onload = function() {
+            loadState();
+            window.applySchoolBackgroundToPage();
+            refreshEntireUI();
+        };
+    </script>
+</body>
+</html>
